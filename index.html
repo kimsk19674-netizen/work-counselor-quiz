@@ -94,9 +94,9 @@
             </div>
         </div>
 
-        <!-- Right Header Badge & Reset Button -->
+        <!-- Right Header Badge & Safe Reset Button -->
         <div class="flex items-center gap-2">
-            <button onclick="resetQuiz()" class="text-xs sm:text-sm font-bold text-slate-700 hover:text-blue-700 px-3 py-1.5 rounded-lg border border-slate-300 hover:bg-slate-100 flex items-center gap-1 transition-all active:scale-95">
+            <button onclick="showResetModal()" class="text-xs sm:text-sm font-bold text-slate-700 hover:text-blue-700 px-3 py-1.5 rounded-lg border border-slate-300 hover:bg-slate-100 flex items-center gap-1 transition-all active:scale-95">
                 <span class="material-symbols-outlined text-base">refresh</span>
                 <span>초기화</span>
             </button>
@@ -146,7 +146,7 @@
                 </div>
 
                 <div class="flex items-center justify-center pt-2">
-                    <button onclick="resetQuiz()" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-blue-600 text-white font-bold text-sm sm:text-base shadow-md hover:bg-blue-700 transition-all flex items-center justify-center gap-2 active:scale-95">
+                    <button onclick="confirmResetQuiz()" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-blue-600 text-white font-bold text-sm sm:text-base shadow-md hover:bg-blue-700 transition-all flex items-center justify-center gap-2 active:scale-95">
                         <span class="material-symbols-outlined text-xl">restart_alt</span>
                         <span>퀴즈 다시 도전하기</span>
                     </button>
@@ -155,6 +155,27 @@
 
         </div>
 
+    </div>
+
+    <!-- Safety Confirmation Reset Modal (Prevents Accidental Resets) -->
+    <div id="safe-reset-modal" class="hidden fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-card-in">
+        <div class="bg-white rounded-3xl p-6 max-w-sm w-full space-y-4 text-center shadow-md3-3 border border-slate-200">
+            <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mx-auto">
+                <span class="material-symbols-outlined text-2xl">warning</span>
+            </div>
+            <div class="space-y-1">
+                <h3 class="text-lg font-bold text-slate-900">퀴즈를 초기화하시겠습니까?</h3>
+                <p class="text-xs text-slate-500">현재까지 풀었던 모든 기록이 지워지고 1번 문제부터 다시 시작합니다.</p>
+            </div>
+            <div class="flex items-center gap-2 pt-2">
+                <button onclick="hideResetModal()" class="flex-1 py-3 rounded-xl bg-slate-100 font-bold text-xs text-slate-700 hover:bg-slate-200">
+                    취소
+                </button>
+                <button onclick="confirmResetQuiz()" class="flex-1 py-3 rounded-xl bg-blue-600 font-bold text-xs text-white hover:bg-blue-700 shadow-md">
+                    초기화 확인
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- Bottom Navigation Controls (1 Question Per Screen) -->
@@ -274,7 +295,7 @@
                 standardAnswer: "정량적 수치 (또는 정량 데이터)",
                 explanation: "정답은 **'정량적 수치'** (또는 정량 데이터)입니다! 주관적인 형용사나 자평은 평가자에게 신뢰를 주지 못합니다. 행위의 크기와 결과를 수치(%, 건수, 금액, 기간 등)로 입증해야 평가 점수를 얻을 수 있습니다.",
                 source: "2026 역량 기반 서류 평가 가이드라인",
-                counselorTip: "💡 상담 현장 멘트: ''열심히 했다' 대신 '작업 시간을 O시간에서 O시간으로 O% 단축했다'처럼 숫자 데이터를 넣어주세요.'"
+                counselorTip: "💡 상담 현장 멘트: ''열심히했다' 대신 '작업 시간을 O시간에서 O시간으로 O% 단축했다'처럼 숫자 데이터를 넣어주세요.'"
             },
             {
                 id: 6,
@@ -313,11 +334,18 @@
         let userAnswers = {}; // { qIndex: selectedIndex } for objective
         let userSubjectiveAnswers = {}; // { qIndex: textInput } for subjective
         let userSubjectiveScores = {}; // { qIndex: boolean } for subjective pass/fail
+        let skippedQuestions = {}; // { qIndex: boolean } for skipped
 
         // Normalization Helper for subjective answer check
         function normalizeText(str) {
             if (!str) return "";
             return str.replace(/[\s\t\n\r\.\,\-\_]/g, "").toLowerCase();
+        }
+
+        // Skip Question Handler (Zero Friction Learning)
+        function skipQuestion(qIndex) {
+            skippedQuestions[qIndex] = true;
+            renderCurrentQuestion();
         }
 
         // Render Active Question Card
@@ -332,7 +360,10 @@
 
             const q = quizData[currentStep];
             const isObjective = (q.type === "objective");
-            const isAnswered = isObjective ? userAnswers.hasOwnProperty(currentStep) : userSubjectiveScores.hasOwnProperty(currentStep);
+            const isSkipped = skippedQuestions[currentStep] === true;
+            const isAnswered = isObjective 
+                ? (userAnswers.hasOwnProperty(currentStep) || isSkipped) 
+                : (userSubjectiveScores.hasOwnProperty(currentStep) || isSkipped);
             const selectedAns = userAnswers[currentStep];
 
             let questionBodyHtml = '';
@@ -346,14 +377,23 @@
                             let icon = `<span class="w-7 h-7 rounded-full border-2 border-slate-400 flex items-center justify-center text-sm font-bold text-slate-600 mr-3 shrink-0">${optIdx + 1}</span>`;
 
                             if (isAnswered) {
-                                if (optIdx === q.correctIndex) {
-                                    btnStyle = "bg-emerald-50 border-emerald-500 text-emerald-950 font-extrabold ring-2 ring-emerald-400/40";
-                                    icon = '<span class="material-symbols-outlined text-emerald-600 mr-2.5 text-2xl shrink-0">check_circle</span>';
-                                } else if (optIdx === selectedAns) {
-                                    btnStyle = "bg-red-50 border-red-400 text-red-950 font-bold";
-                                    icon = '<span class="material-symbols-outlined text-red-500 mr-2.5 text-2xl shrink-0">cancel</span>';
+                                if (isSkipped) {
+                                    if (optIdx === q.correctIndex) {
+                                        btnStyle = "bg-emerald-50 border-emerald-500 text-emerald-950 font-extrabold ring-2 ring-emerald-400/40";
+                                        icon = '<span class="material-symbols-outlined text-emerald-600 mr-2.5 text-2xl shrink-0">check_circle</span>';
+                                    } else {
+                                        btnStyle = "bg-slate-50 border-slate-200 text-slate-400 opacity-50 cursor-not-allowed";
+                                    }
                                 } else {
-                                    btnStyle = "bg-slate-50 border-slate-200 text-slate-400 opacity-50 cursor-not-allowed";
+                                    if (optIdx === q.correctIndex) {
+                                        btnStyle = "bg-emerald-50 border-emerald-500 text-emerald-950 font-extrabold ring-2 ring-emerald-400/40";
+                                        icon = '<span class="material-symbols-outlined text-emerald-600 mr-2.5 text-2xl shrink-0">check_circle</span>';
+                                    } else if (optIdx === selectedAns) {
+                                        btnStyle = "bg-red-50 border-red-400 text-red-950 font-bold";
+                                        icon = '<span class="material-symbols-outlined text-red-500 mr-2.5 text-2xl shrink-0">cancel</span>';
+                                    } else {
+                                        btnStyle = "bg-slate-50 border-slate-200 text-slate-400 opacity-50 cursor-not-allowed";
+                                    }
                                 }
                             }
 
@@ -368,9 +408,18 @@
                             `;
                         }).join('')}
                     </div>
+
+                    ${!isAnswered ? `
+                        <div class="pt-2 flex justify-end">
+                            <button onclick="skipQuestion(${currentStep})" class="text-xs sm:text-sm font-bold text-slate-500 hover:text-blue-700 underline underline-offset-4 flex items-center gap-1 px-2 py-1">
+                                <span class="material-symbols-outlined text-base">help</span>
+                                <span>답을 모르겠어요 (건너뛰고 해설 보기)</span>
+                            </button>
+                        </div>
+                    ` : ''}
                 `;
             } else {
-                // Subjective Input Form (Large Input)
+                // Subjective Input Form
                 const currentInput = userSubjectiveAnswers[currentStep] || "";
                 const isPassed = userSubjectiveScores[currentStep] === true;
 
@@ -393,22 +442,40 @@
                                     <span class="material-symbols-outlined text-lg">send</span>
                                 </button>
                             </div>
+                            <p id="sub-error-${currentStep}" class="hidden text-xs font-bold text-red-600 pl-1">⚠️ 단어를 입력하시거나 [건너뛰기]를 클릭해 주세요.</p>
+                            
+                            <div class="flex justify-end pt-1">
+                                <button onclick="skipQuestion(${currentStep})" class="text-xs sm:text-sm font-bold text-slate-500 hover:text-blue-700 underline underline-offset-4 flex items-center gap-1 px-2 py-1">
+                                    <span class="material-symbols-outlined text-base">help</span>
+                                    <span>답을 모르겠어요 (건너뛰고 해설 보기)</span>
+                                </button>
+                            </div>
                         </div>
                     `;
                 } else {
                     questionBodyHtml = `
                         <div class="pt-2 space-y-2.5">
-                            <div class="p-4 rounded-2xl border-2 ${isPassed ? 'bg-emerald-50 border-emerald-400 text-emerald-950' : 'bg-red-50 border-red-400 text-red-950'} flex items-center justify-between text-sm sm:text-base">
-                                <div class="flex items-center gap-2">
-                                    <span class="material-symbols-outlined ${isPassed ? 'text-emerald-600' : 'text-red-500'} font-black text-2xl">
-                                        ${isPassed ? 'check_circle' : 'cancel'}
-                                    </span>
-                                    <span>내가 입력한 답: <strong class="text-slate-900 font-extrabold">"${userSubjectiveAnswers[currentStep]}"</strong></span>
+                            ${isSkipped ? `
+                                <div class="p-4 rounded-2xl border-2 bg-slate-100 border-slate-300 text-slate-700 flex items-center justify-between text-sm sm:text-base">
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-slate-500 font-black text-2xl">help</span>
+                                        <span><strong>[건너뜀]</strong> 해설 및 모범 답안을 확인해 보세요.</span>
+                                    </div>
+                                    <span class="font-bold px-2.5 py-1 rounded-lg text-xs bg-slate-200 text-slate-700">미응답</span>
                                 </div>
-                                <span class="font-bold px-2.5 py-1 rounded-lg text-xs ${isPassed ? 'bg-emerald-200 text-emerald-900' : 'bg-red-200 text-red-900'}">
-                                    ${isPassed ? '정답 인정' : '오답'}
-                                </span>
-                            </div>
+                            ` : `
+                                <div class="p-4 rounded-2xl border-2 ${isPassed ? 'bg-emerald-50 border-emerald-400 text-emerald-950' : 'bg-red-50 border-red-400 text-red-950'} flex items-center justify-between text-sm sm:text-base">
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined ${isPassed ? 'text-emerald-600' : 'text-red-500'} font-black text-2xl">
+                                            ${isPassed ? 'check_circle' : 'cancel'}
+                                        </span>
+                                        <span>내가 입력한 답: <strong class="text-slate-900 font-extrabold">"${userSubjectiveAnswers[currentStep]}"</strong></span>
+                                    </div>
+                                    <span class="font-bold px-2.5 py-1 rounded-lg text-xs ${isPassed ? 'bg-emerald-200 text-emerald-900' : 'bg-red-200 text-red-900'}">
+                                        ${isPassed ? '정답 인정' : '오답'}
+                                    </span>
+                                </div>
+                            `}
                             <div class="text-xs sm:text-sm text-slate-700 px-1 font-bold">
                                 * 권장 모범 답안: <strong class="text-blue-700 text-sm sm:text-base">${q.standardAnswer}</strong>
                             </div>
@@ -451,7 +518,7 @@
                     <!-- Question Interactive Body -->
                     ${questionBodyHtml}
 
-                    <!-- Explanation Card (Appears after answer) -->
+                    <!-- Explanation Card (Appears after answer/skip) -->
                     ${isAnswered ? `
                         <div class="mt-4 p-4 sm:p-5 rounded-2xl ${ (isObjective ? selectedAns === q.correctIndex : userSubjectiveScores[currentStep]) ? 'bg-emerald-50 border-emerald-300' : 'bg-amber-50 border-amber-300'} border-2 space-y-2.5 animate-card-in">
                             <div class="flex items-center gap-2 font-black text-sm sm:text-base ${ (isObjective ? selectedAns === q.correctIndex : userSubjectiveScores[currentStep]) ? 'text-emerald-900' : 'text-amber-950'}">
@@ -477,7 +544,7 @@
 
         // Objective Option Click
         function selectAnswer(qIndex, optIndex) {
-            if (userAnswers.hasOwnProperty(qIndex)) return;
+            if (userAnswers.hasOwnProperty(qIndex) || skippedQuestions[qIndex]) return;
             userAnswers[qIndex] = optIndex;
             renderCurrentQuestion();
         }
@@ -485,14 +552,17 @@
         // Subjective Submit Click
         function checkSubjectiveAnswer(qIndex) {
             const inputEl = document.getElementById(`sub-input-${qIndex}`);
+            const errorMsgEl = document.getElementById(`sub-error-${qIndex}`);
             if (!inputEl) return;
 
             const rawVal = inputEl.value.trim();
             if (!rawVal) {
-                alert("답을 입력해 주세요.");
+                if (errorMsgEl) errorMsgEl.classList.remove('hidden');
                 inputEl.focus();
                 return;
             }
+
+            if (errorMsgEl) errorMsgEl.classList.add('hidden');
 
             userSubjectiveAnswers[qIndex] = rawVal;
             const normalizedInput = normalizeText(rawVal);
@@ -511,7 +581,6 @@
                 renderCurrentQuestion();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
-                // At step 7, show final result
                 showFinalResultModal();
             }
         }
@@ -533,9 +602,11 @@
             const progressPercent = ((currentStep + 1) / quizData.length) * 100;
             document.getElementById('top-progress-bar').style.width = `${progressPercent}%`;
 
-            // Calculate total answered count
-            const totalAnswered = Object.keys(userAnswers).length + Object.keys(userSubjectiveScores).length;
-            document.getElementById('answered-indicator').innerText = totalAnswered;
+            // Calculate total answered or skipped count
+            const answeredCount = Object.keys(userAnswers).length + Object.keys(userSubjectiveScores).length;
+            const skippedCount = Object.keys(skippedQuestions).filter(k => !userAnswers.hasOwnProperty(k) && !userSubjectiveScores.hasOwnProperty(k)).length;
+            
+            document.getElementById('answered-indicator').innerText = answeredCount + skippedCount;
 
             // Prev Button State
             const prevBtn = document.getElementById('btn-prev');
@@ -595,12 +666,22 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Reset Quiz Logic
-        function resetQuiz() {
+        // Safe Reset Confirmation Modal Handlers
+        function showResetModal() {
+            document.getElementById('safe-reset-modal').classList.remove('hidden');
+        }
+
+        function hideResetModal() {
+            document.getElementById('safe-reset-modal').classList.add('hidden');
+        }
+
+        function confirmResetQuiz() {
+            hideResetModal();
             currentStep = 0;
             userAnswers = {};
             userSubjectiveAnswers = {};
             userSubjectiveScores = {};
+            skippedQuestions = {};
             renderCurrentQuestion();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
