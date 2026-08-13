@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>2026 고용노동부 직업상담사 서류 지도 역량 퀴즈 (모바일 최적화)</title>
+    <title>2026 고용노동부 직업상담사 서류 지도 역량 퀴즈</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -47,7 +47,6 @@
             font-family: 'Noto Sans KR', 'Inter', sans-serif;
             color: #1F1F1F;
             -webkit-tap-highlight-color: transparent;
-            /* Anti-Copy Protection */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -56,9 +55,6 @@
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
             vertical-align: middle;
-        }
-        .material-symbols-outlined.filled {
-            font-variation-settings: 'FILL' 1;
         }
         ::-webkit-scrollbar {
             width: 6px;
@@ -82,7 +78,6 @@
 </head>
 <body class="h-screen flex flex-col overflow-hidden text-slate-800 bg-slate-100">
 
-    <!-- Top App Bar (MD3 Mobile Header) -->
     <header class="bg-white border-b border-slate-200 px-3.5 sm:px-6 py-3 flex items-center justify-between shrink-0 gap-2 z-20 shadow-sm">
         <div class="flex items-center gap-2.5 shrink-0">
             <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-700 flex items-center justify-center text-white font-bold shadow-sm">
@@ -94,7 +89,6 @@
             </div>
         </div>
 
-        <!-- Right Header Badge & Safe Reset Button -->
         <div class="flex items-center gap-2">
             <button onclick="showResetModal()" class="text-xs sm:text-sm font-bold text-slate-700 hover:text-blue-700 px-3 py-1.5 rounded-lg border border-slate-300 hover:bg-slate-100 flex items-center gap-1 transition-all active:scale-95">
                 <span class="material-symbols-outlined text-base">refresh</span>
@@ -103,7 +97,6 @@
         </div>
     </header>
 
-    <!-- Top Step Progress Bar Indicator -->
     <div class="bg-white border-b border-slate-200 px-4 py-2.5 flex items-center justify-between shrink-0 gap-3 shadow-inner">
         <div class="flex items-center gap-2">
             <span class="material-symbols-outlined text-blue-600 text-xl font-bold">task_alt</span>
@@ -116,9 +109,7 @@
         </div>
     </div>
 
-    <!-- Main Scrollable Body Container -->
     <div class="flex-1 overflow-y-auto p-3 sm:p-6 flex flex-col items-center justify-start pb-28">
-        
         <div class="w-full max-w-2xl mx-auto space-y-4">
             
             <!-- Dynamic Question Card Placeholder -->
@@ -154,10 +145,8 @@
             </div>
 
         </div>
-
     </div>
 
-    <!-- Safety Confirmation Reset Modal (Prevents Accidental Resets) -->
     <div id="safe-reset-modal" class="hidden fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-card-in">
         <div class="bg-white rounded-3xl p-6 max-w-sm w-full space-y-4 text-center shadow-md3-3 border border-slate-200">
             <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mx-auto">
@@ -178,7 +167,32 @@
         </div>
     </div>
 
-    <!-- Bottom Navigation Controls (1 Question Per Screen) -->
+    <div id="time-lock-modal" class="hidden fixed inset-0 bg-slate-900/80 z-50 flex items-center justify-center p-4 backdrop-blur-md animate-card-in">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full space-y-5 text-center shadow-md3-3 border border-slate-200">
+            <div class="w-16 h-16 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center mx-auto shadow-inner">
+                <span class="material-symbols-outlined text-3xl">lock_clock</span>
+            </div>
+            <div class="space-y-2">
+                <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">교육 전용 시간 외 접속 제한</h2>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                    본 퀴즈는 지정된 교육 강의 시간 내에만 이용하실 수 있습니다.<br>
+                    <span class="text-blue-700 font-bold block mt-1">허용 시간: 2026년 8월 14일 09:00 ~ 10:15</span>
+                </p>
+            </div>
+
+            <div class="pt-3 border-t border-slate-200 space-y-3">
+                <span class="text-xs font-bold text-slate-500 block">🔒 강사 사전 테스트 / 마스터 잠금 해제</span>
+                <div class="flex items-center gap-2">
+                    <input type="password" id="master-pin-input" placeholder="마스터 PIN 입력" class="flex-1 px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-blue-600 text-center font-bold tracking-widest">
+                    <button onclick="unlockWithMasterPin()" class="px-5 py-3 rounded-xl bg-blue-700 text-white text-xs font-bold hover:bg-blue-800 transition-all shadow-md shrink-0">
+                        해제
+                    </button>
+                </div>
+                <p id="pin-error-msg" class="text-xs font-bold text-red-600 hidden">비밀번호가 올바르지 않습니다.</p>
+            </div>
+        </div>
+    </div>
+
     <footer id="nav-footer" class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-300 p-3 sm:p-4 z-30 shadow-lg">
         <div class="max-w-2xl mx-auto flex items-center justify-between gap-3">
             <button 
@@ -204,15 +218,449 @@
     </footer>
 
     <script>
-        // 🔒 Access Lock & Trainer Master Config
         const ACCESS_CONFIG = {
-            // 1. 교육 허용 시작 날짜/시간 (YYYY-MM-DDTHH:mm:ss)
             startTime: "2026-08-14T09:00:00", 
-            // 2. 교육 허용 종료 날짜/시간 (09시 ~ 10시 15분)
             endTime: "2026-08-14T10:15:00",
-            // 3. 강사 전용 마스터 비밀번호
             masterPin: "2026"
         };
 
-        // Quiz Data - 4 Objective + 3 Short-Answer Subjective
-<!-- ... existing code -->
+        const quizData = [
+            {
+                id: 1,
+                type: "objective",
+                sender: "고용노동부 직업상담 수료자 서류 지도팀",
+                emailSubject: "[2026 수시채용] 서류합격을 결정짓는 정량 평가 1순위",
+                category: "서류 지도 역량",
+                time: "오전 09:10",
+                avatarBg: "bg-blue-700",
+                question: "2026년 수시 채용 및 스킬 기반 채용 시장에서 주관적 형용사(예: 열정적인, 최선을 다하는)를 대체하여 서류 통과율을 높이는 가장 핵심적인 자소서 표현 지도 방식은 무엇일까요?",
+                options: [
+                    "구체적 행동과 정량적 수치 데이터(STAR 기법 수치화)",
+                    "화려한 어휘와 추상적인 각오 강조",
+                    "기업에 대한 과도한 3인칭 찬사와 칭찬"
+                ],
+                correctIndex: 0,
+                explanation: "정답은 **'구체적 행동과 정량적 수치 데이터'**입니다! 최근 기업들은 AI 서류 검증 및 실무 과제 평가를 통해 '성과 데이터'를 수치로 증명한 서류에 압도적으로 높은 점수를 부여합니다.",
+                source: "2026 고용노동부 직업상담 현장 가이드",
+                prepTip: "💡 현장 첨삭 팁: '열심히 홍보함'을 '소셜 채널 카드뉴스 5건 제작을 통해 방문자 수를 전월 대비 35% 증대시킴'으로 수치화하도록 지도하세요."
+            },
+            {
+                id: 2,
+                type: "objective",
+                sender: "한국바른채용인증원 HR 연구팀",
+                emailSubject: "[평가 기준] 2026년 면접과 자소서에서 가장 먼저 검증하는 항목",
+                category: "채용 평가 기준",
+                time: "오전 09:30",
+                avatarBg: "bg-indigo-700",
+                question: "획일적인 조직 문화 적합성(컬처핏)을 넘어, 지원자가 실제 배치될 팀의 일하는 방식과 소통 리듬에 부합하는지 정밀하게 검증하는 평가 요소는 무엇일까요?",
+                options: [
+                    "팀핏 (Team-Fit)",
+                    "단순 출신 학교 및 스펙",
+                    "개인적 취향 및 인맥"
+                ],
+                correctIndex: 0,
+                explanation: "정답은 **'팀핏 (Team-Fit)'**입니다! 2026년 채용 현장에서는 팀 단위 실무 협업 스타일과 소통 방식이 잘 맞는지 검증하는 것이 서류 및 면접의 최우선 기준입니다.",
+                source: "《채용트렌드 2026》",
+                prepTip: "💡 현장 첨삭 팁: 지원 회사의 전체 특징보다는 지원 직무 팀의 최근 프로젝트와 소통 방식을 파악하도록 지도하세요."
+            },
+            {
+                id: 3,
+                type: "objective",
+                sender: "대한상공회의소 데이터센터",
+                emailSubject: "[필수역량] 비개발 직군 자소서에도 포함되어야 할 1순위 기술",
+                category: "AI 리터러시",
+                time: "오전 10:15",
+                avatarBg: "bg-emerald-700",
+                question: "기업의 69.2%가 채용 시 유의미하게 평가하며, 마케팅·기획·영업 등 비개발 직군 구직자도 업무 생산성을 높이기 위해 자소서에 작성해야 하는 역량은 무엇일까요?",
+                options: [
+                    "AI 리터러시 (생성형 AI 툴 실무 활용 능력)",
+                    "전통적 엑셀 단축키 암기",
+                    "고급 C++ 코딩 자격증"
+                ],
+                correctIndex: 0,
+                explanation: "정답은 **'AI 리터러시'**입니다! 생성형 AI 및 AI 도구를 실무에 접목해 업무 효율성을 대폭 개선한 경험을 어필하는 것이 모든 직군에서 필수가 되었습니다.",
+                source: "대한상공회의소 기업 AI 활용 조사",
+                prepTip: "💡 현장 첨삭 팁: AI 툴을 활용해 자료 조사 및 시안 제작 시간을 50% 단축한 경험 등을 구체적 도구 명칭과 함께 기재하도록 지도하세요."
+            },
+            {
+                id: 4,
+                type: "objective",
+                sender: "사람인 HR 연구소",
+                emailSubject: "[채용 변화] 스펙 나열 대신 이것을 검증하는 시대",
+                category: "스펙 vs 역량",
+                time: "어제",
+                avatarBg: "bg-purple-700",
+                question: "학벌, 단순 스펙 나열보다 '실무 과제, 포트폴리오, 프로젝트 수행 데이터' 등 즉시 투입 가능한 실무 역량을 보고 평가하는 선발 방식을 무엇이라 할까요?",
+                options: [
+                    "스킬 기반 채용 (Skills-Based Hiring)",
+                    "스펙 우대 채용 (Spec-First Hiring)",
+                    "연차 중심 채용 (Seniority-Based Hiring)"
+                ],
+                correctIndex: 0,
+                explanation: "정답은 **'스킬 기반 채용'**입니다! 서류 전형에서 단순 자격증 나열을 넘어, 실제 문제 해결 능력과 실무 스킬을 입증한 포트폴리오를 작성하는 것이 합격의 열쇠입니다.",
+                source: "사람인 HR 리포트",
+                prepTip: "💡 현장 첨삭 팁: 자소서에 단순 배움의 경험보다는 문제 해결 과정과 최종 성과 데이터 위주로 작성하도록 가이드하세요."
+            },
+            {
+                id: 5,
+                type: "subjective",
+                sender: "고용노동부 직업상담 전문관",
+                emailSubject: "[주관식 1] 비직무 경험을 직무 가치로 전환하는 핵심 기술",
+                category: "서류 지도 핵심어",
+                time: "어제",
+                avatarBg: "bg-amber-700",
+                question: "아르바이트나 동아리 같은 비관련 경험에서 유의미한 기술을 추출하여, 지원 직무에서도 즉시 활용할 수 있도록 재해석해 주는 역량을 무엇이라 할까요? (힌트: 4글자, 'OO 역량')",
+                keywords: ["전이역량", "전이 역량", "전이"],
+                standardAnswer: "전이 역량 (Transferable Skills)",
+                explanation: "정답은 **'전이 역량'**입니다! 아르바이트에서의 고객 응대, 동아리에서의 일정 관리 경험도 지원 직무의 '고객 관리' 및 '프로세스 관리' 데이터로 전환시켜 주는 것이 직업상담사의 핵심 첨삭 역량입니다.",
+                source: "2026 직업상담 실무 가이드",
+                prepTip: "💡 현장 첨삭 팁: 구직자가 '경험이 없다'고 낙담할 때, 과거 비직무 경험 속에서 공통적으로 쓰이는 '전이 역량'을 발굴해 주세요."
+            },
+            {
+                id: 6,
+                type: "subjective",
+                sender: "2026 우수 상담사 모범사례집",
+                emailSubject: "[주관식 2] 자소서 첨삭 시 가장 먼저 지워야 할 문장 유형",
+                category: "자소서 리라이팅",
+                time: "8월 12일",
+                avatarBg: "bg-red-700",
+                question: "자기소개서 작성 시 구직자가 자주 범하는 오류 중 하나로, 정작 본인의 성과나 가치는 없고 지원 기업에 대한 찬사와 3인칭 서술로만 채운 문장을 무엇이라 부를까요? (힌트: 3글자, 'OOO 찬사' 또는 '기업 OOO')",
+                keywords: ["기업찬사", "기업 찬사", "기업칭찬", "기업 칭찬"],
+                standardAnswer: "기업 찬사 (또는 3인칭 기업 칭찬)",
+                explanation: "정답은 **'기업 찬사'**입니다! 기업에 대한 칭찬은 채용 담당자에게 아무런 감흥을 주지 못합니다. 3인칭 기업 찬사를 지우고 구직자의 1인칭 문제해결 경험과 기여 중심으로 문장을 전환해야 합니다.",
+                source: "고용노동부 자소서 첨삭 가이드",
+                prepTip: "💡 현장 첨삭 팁: 'OO기업은 최고의 서비스를 제공합니다'를 '제가 보유한 OO 스킬로 OO기업의 서비스 전달 속도를 향상시키겠습니다'로 1인칭 전환 지도하세요."
+            },
+            {
+                id: 7,
+                type: "subjective",
+                sender: "2026 채용 혁신위원회",
+                emailSubject: "[주관식 3] AI 생성 문장을 구직자 고유 서류로 바꾸는 지침",
+                category: "AI 자소서 지도",
+                time: "8월 11일",
+                avatarBg: "bg-cyan-700",
+                question: "구직자가 챗GPT로 작성한 자소서의 정형화되고 진부한 문장을 교체할 때, 오직 구직자 본인만의 경험임을 입증할 수 있도록 문장 속에 반드시 삽입하도록 지도해야 하는 1순위 요소는 무엇일까요? (힌트: 2글자 또는 4글자, 'OO' 또는 'OO 데이터')",
+                keywords: ["수치", "수치데이터", "수치 데이터", "숫자", "성과데이터"],
+                standardAnswer: "수치 (또는 성과 데이터)",
+                explanation: "정답은 **'수치 (성과 데이터)'**입니다! AI가 쓴 문장은 겉보기엔 매끄럽지만 본인만의 정량적 수치가 없습니다. 구직자 고유의 숫자와 도구 명칭을 집어넣어야 진짜 자소서가 됩니다.",
+                source: "2026 AI 채용 대응 지도 가이드",
+                prepTip: "💡 현장 첨삭 팁: AI 문장 속에 '기간, 인원, 금액, 달성률' 등의 숫자를 3개 이상 채워 넣도록 코칭하세요."
+            }
+        ];
+
+        let currentStep = 0;
+        let userAnswers = {}; // stepIndex: { answer, isCorrect, skipped }
+
+        function checkAccessPermission() {
+            const isUnlocked = sessionStorage.getItem("work_counselor_unlocked");
+            if (isUnlocked === "true") {
+                document.getElementById('time-lock-modal').classList.add('hidden');
+                return true;
+            }
+
+            const now = new Date();
+            const start = new Date(ACCESS_CONFIG.startTime);
+            const end = new Date(ACCESS_CONFIG.endTime);
+
+            if (now >= start && now <= end) {
+                document.getElementById('time-lock-modal').classList.add('hidden');
+                return true;
+            } else {
+                document.getElementById('time-lock-modal').classList.remove('hidden');
+                return false;
+            }
+        }
+
+        function unlockWithMasterPin() {
+            const inputPin = document.getElementById('master-pin-input').value.trim();
+            const errorMsg = document.getElementById('pin-error-msg');
+
+            if (inputPin === ACCESS_CONFIG.masterPin) {
+                sessionStorage.setItem("work_counselor_unlocked", "true");
+                document.getElementById('time-lock-modal').classList.add('hidden');
+                errorMsg.classList.add('hidden');
+                renderCurrentQuestion();
+            } else {
+                errorMsg.classList.remove('hidden');
+            }
+        }
+
+        function renderCurrentQuestion() {
+            if (currentStep >= quizData.length) {
+                showFinalResults();
+                return;
+            }
+
+            document.getElementById('result-modal').classList.add('hidden');
+            document.getElementById('single-question-container').classList.remove('hidden');
+
+            const q = quizData[currentStep];
+            const container = document.getElementById('single-question-container');
+            const stepRecord = userAnswers[currentStep];
+
+            document.getElementById('current-step-num').innerText = currentStep + 1;
+            document.getElementById('total-step-num').innerText = quizData.length;
+            const progressPercent = ((currentStep + 1) / quizData.length) * 100;
+            document.getElementById('top-progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('answered-indicator').innerText = Object.keys(userAnswers).length;
+
+            let questionBodyHTML = '';
+
+            if (q.type === 'objective') {
+                questionBodyHTML = `
+                    <div class="grid grid-cols-1 gap-2.5 pt-2">
+                        ${q.options.map((opt, optIdx) => {
+                            let btnStyle = "bg-slate-50 border-slate-300 text-slate-800 hover:bg-blue-50/50 hover:border-blue-400";
+                            let icon = `<span class="w-7 h-7 rounded-full border-2 border-slate-400 flex items-center justify-center text-xs font-bold text-slate-600 mr-3 shrink-0">${optIdx + 1}</span>`;
+
+                            if (stepRecord) {
+                                if (optIdx === q.correctIndex) {
+                                    btnStyle = "bg-emerald-50 border-emerald-500 text-emerald-900 font-bold ring-2 ring-emerald-400/30";
+                                    icon = `<span class="material-symbols-outlined text-emerald-600 mr-2.5 text-2xl shrink-0">check_circle</span>`;
+                                } else if (optIdx === stepRecord.answer) {
+                                    btnStyle = "bg-red-50 border-red-400 text-red-900 font-semibold";
+                                    icon = `<span class="material-symbols-outlined text-red-500 mr-2.5 text-2xl shrink-0">cancel</span>`;
+                                } else {
+                                    btnStyle = "bg-slate-50 border-slate-200 text-slate-400 opacity-60 cursor-not-allowed";
+                                }
+                            }
+
+                            return `
+                                <button 
+                                    onclick="selectObjectiveAnswer(${optIdx})" 
+                                    ${stepRecord ? 'disabled' : ''} 
+                                    class="w-full text-left p-4 rounded-xl border-2 text-sm sm:text-base flex items-center transition-all ${btnStyle} min-h-[56px] active:scale-[0.99]">
+                                    ${icon}
+                                    <span class="flex-1 font-medium leading-snug">${opt}</span>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            } else {
+                questionBodyHTML = `
+                    <div class="pt-2 space-y-3">
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-bold text-slate-700 block">정답 단어 입력:</label>
+                            <div class="flex gap-2">
+                                <input 
+                                    type="text" 
+                                    id="subjective-input" 
+                                    placeholder="정답을 입력하세요 (예: 전이역량)" 
+                                    value="${stepRecord ? (stepRecord.answer || '') : ''}"
+                                    ${stepRecord ? 'disabled' : ''} 
+                                    class="flex-1 px-4 py-3.5 rounded-xl border-2 border-slate-300 text-sm sm:text-base focus:border-blue-600 focus:outline-none font-bold text-slate-900 disabled:bg-slate-100 disabled:text-slate-600 min-h-[52px]">
+                                
+                                ${!stepRecord ? `
+                                    <button 
+                                        onclick="submitSubjectiveAnswer()" 
+                                        class="px-6 py-3.5 rounded-xl bg-blue-700 text-white font-bold text-sm hover:bg-blue-800 transition-all shadow-md active:scale-95 shrink-0">
+                                        제출
+                                    </button>
+                                ` : ''}
+                            </div>
+                            <p id="subjective-error" class="text-xs font-bold text-red-600 hidden">단어를 입력하신 후 제출 버튼을 눌러주세요.</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = `
+                <div class="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-md3-2 p-4 sm:p-7 space-y-4 animate-card-in">
+                    
+                    <div class="flex items-start justify-between gap-3 border-b border-slate-100 pb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl ${q.avatarBg} text-white font-bold flex items-center justify-center text-sm shadow-sm shrink-0">
+                                ${q.category.charAt(0)}
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <span class="font-bold text-slate-900 text-xs sm:text-sm">${q.sender}</span>
+                                    <span class="text-[11px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-md font-extrabold">${q.category}</span>
+                                </div>
+                                <h2 class="text-xs sm:text-sm font-semibold text-slate-600 line-clamp-1">${q.emailSubject}</h2>
+                            </div>
+                        </div>
+                        <span class="text-xs font-bold text-slate-400 shrink-0">${q.time}</span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-2.5">
+                            <span class="bg-blue-700 text-white text-xs sm:text-sm font-extrabold px-3 py-1 rounded-full shrink-0 mt-0.5">Q${currentStep + 1}</span>
+                            <p class="text-base sm:text-lg font-bold text-slate-900 leading-relaxed">${q.question}</p>
+                        </div>
+
+                        ${questionBodyHTML}
+
+                        ${!stepRecord ? `
+                            <div class="pt-2">
+                                <button 
+                                    onclick="skipQuestion()" 
+                                    class="w-full py-3 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 font-bold text-xs sm:text-sm hover:bg-amber-100 transition-all flex items-center justify-center gap-1.5 shadow-sm active:scale-98">
+                                    <span class="material-symbols-outlined text-amber-700 text-base sm:text-lg">lightbulb</span>
+                                    <span>💡 답을 모르겠어요 (건너뛰고 해설 보기)</span>
+                                </button>
+                            </div>
+                        ` : ''}
+
+                        ${stepRecord ? `
+                            <div class="mt-4 p-4 sm:p-5 rounded-2xl ${stepRecord.isCorrect ? 'bg-emerald-50/90 border-emerald-300' : 'bg-amber-50/90 border-amber-300'} border-2 space-y-2.5 animate-card-in">
+                                <div class="flex items-center gap-2 font-extrabold text-sm sm:text-base ${stepRecord.isCorrect ? 'text-emerald-900' : 'text-amber-900'}">
+                                    <span class="material-symbols-outlined text-xl sm:text-2xl">${stepRecord.isCorrect ? 'check_circle' : 'info'}</span>
+                                    <span>${stepRecord.isCorrect ? '정답입니다!' : (stepRecord.skipped ? '건너뛴 문항입니다 (해설 학습)' : '아쉽네요! 정답을 확인하세요.')}</span>
+                                </div>
+                                
+                                ${q.type === 'subjective' ? `
+                                    <div class="text-xs sm:text-sm font-bold text-slate-900 bg-white/80 p-2.5 rounded-xl border border-slate-200">
+                                        📌 모범 답안: <span class="text-blue-700 font-extrabold">${q.standardAnswer}</span>
+                                    </div>
+                                ` : ''}
+
+                                <p class="text-xs sm:text-sm text-slate-800 leading-relaxed font-medium">${q.explanation}</p>
+                                
+                                <div class="text-xs text-blue-900 bg-blue-100/70 p-3 rounded-xl border border-blue-200/80 font-bold leading-relaxed pt-2">
+                                    ${q.prepTip}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+
+                </div>
+            `;
+
+            document.getElementById('btn-prev').disabled = (currentStep === 0);
+            
+            const nextBtnText = document.getElementById('next-btn-text');
+            if (currentStep === quizData.length - 1) {
+                nextBtnText.innerText = '결과 확인하기';
+            } else {
+                nextBtnText.innerText = '다음 문제';
+            }
+        }
+
+        function selectObjectiveAnswer(optIdx) {
+            if (userAnswers[currentStep]) return;
+
+            const q = quizData[currentStep];
+            const isCorrect = (optIdx === q.correctIndex);
+
+            userAnswers[currentStep] = {
+                answer: optIdx,
+                isCorrect: isCorrect,
+                skipped: false
+            };
+
+            renderCurrentQuestion();
+        }
+
+        function submitSubjectiveAnswer() {
+            if (userAnswers[currentStep]) return;
+
+            const inputEl = document.getElementById('subjective-input');
+            const errorEl = document.getElementById('subjective-error');
+            const userVal = inputEl.value.trim().replaceAll(" ", "");
+
+            if (!userVal) {
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            errorEl.classList.add('hidden');
+            const q = quizData[currentStep];
+            const isCorrect = q.keywords.some(kw => kw.replaceAll(" ", "") === userVal);
+
+            userAnswers[currentStep] = {
+                answer: inputEl.value.trim(),
+                isCorrect: isCorrect,
+                skipped: false
+            };
+
+            renderCurrentQuestion();
+        }
+
+        function skipQuestion() {
+            if (userAnswers[currentStep]) return;
+
+            userAnswers[currentStep] = {
+                answer: null,
+                isCorrect: false,
+                skipped: true
+            };
+
+            renderCurrentQuestion();
+        }
+
+        function prevQuestion() {
+            if (currentStep > 0) {
+                currentStep--;
+                renderCurrentQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (currentStep < quizData.length - 1) {
+                currentStep++;
+                renderCurrentQuestion();
+            } else {
+                showFinalResults();
+            }
+        }
+
+        function showFinalResults() {
+            document.getElementById('single-question-container').classList.add('hidden');
+            const modal = document.getElementById('result-modal');
+            const header = document.getElementById('result-header');
+
+            let correctCount = 0;
+            Object.keys(userAnswers).forEach(idx => {
+                if (userAnswers[idx].isCorrect) correctCount++;
+            });
+
+            const isPassed = correctCount >= 4;
+
+            if (isPassed) {
+                header.innerHTML = `
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-bold mb-1">
+                        <span class="material-symbols-outlined text-emerald-600">verified</span>
+                        <span>서류 지도 역량 통과 (PASS)</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">🎉 축하합니다! (${correctCount} / 7개 정답)</h2>
+                    <p class="text-sm sm:text-base font-bold text-blue-700 pt-1">2026년 고용노동부 서류 지도 핵심 포인트를 명확히 파악하셨습니다!</p>
+                `;
+            } else {
+                header.innerHTML = `
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 text-amber-800 text-xs sm:text-sm font-bold mb-1">
+                        <span class="material-symbols-outlined text-amber-600">auto_fix_high</span>
+                        <span>학습 완료 (${correctCount} / 7개 정답)</span>
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900">핵심 가이드를 다시 한번 복습해보세요!</h2>
+                    <p class="text-xs sm:text-sm text-slate-600 pt-1">결과 요약을 확인하고 현장상담 첨삭 시 적용해보세요.</p>
+                `;
+            }
+
+            modal.classList.remove('hidden');
+            modal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function showResetModal() {
+            document.getElementById('safe-reset-modal').classList.remove('hidden');
+        }
+
+        function hideResetModal() {
+            document.getElementById('safe-reset-modal').classList.add('hidden');
+        }
+
+        function confirmResetQuiz() {
+            hideResetModal();
+            userAnswers = {};
+            currentStep = 0;
+            renderCurrentQuestion();
+        }
+
+        window.onload = function() {
+            checkAccessPermission();
+            renderCurrentQuestion();
+        };
+    </script>
+</body>
+</html>
