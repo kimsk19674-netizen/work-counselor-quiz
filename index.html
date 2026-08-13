@@ -47,7 +47,7 @@
             font-family: 'Noto Sans KR', 'Inter', sans-serif;
             color: #1F1F1F;
             -webkit-tap-highlight-color: transparent;
-            /* 복사 방지: 드래그 및 텍스트 선택 금지 */
+            /* Anti-Copy Protection */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -223,9 +223,9 @@
                 avatarBg: "bg-blue-700",
                 question: "2026년 기업의 AI 서류 평가 시스템은 ChatGPT/Claude 등의 정형화된 패턴 문장을 감점 대상으로 분류합니다. AI가 작성한 초안을 '구직자 고유의 합격 자소서'로 다듬기 위해 상담사가 지도해야 할 가장 핵심적인 첨삭 방식은 무엇입니까?",
                 options: [
-                    "AI가 쓴 매끄러운 단어와 어조를 유지하되 고사성어나 특수문자만 추가한다.",
+                    "AI가 생성한 매끄럽고 세련된 문장 어조를 그대로 유지하되, 지원 기업명과 부서명만 구직자 상황에 맞게 교체하도록 지도한다.",
                     "AI 문장에서 일반적·추상적 결론 문장을 지우고, 구직자만의 구체적인 업무 수치(성과 데이터)와 시행착오 경험을 직접 재작성(Rewriting)하게 한다.",
-                    "글자 수를 늘리기 위해 AI에게 동일한 주제로 세 번 더 다듬게 한 뒤 합친다."
+                    "AI가 생성한 전체 문장 구조는 유지하면서, 어색한 어미 표현이나 단순 문법 오류 위주로 매끄럽게 단순 교정(Proofreading)하도록 지도한다."
                 ],
                 correctIndex: 1,
                 explanation: "정답은 **2번**입니다! 2026년 채용 시장에서 AI 서류 판독기 및 평가자는 '매끄럽지만 누구에게나 해당하는 문장'을 즉시 감점합니다. AI로 문맥 구조만 잡은 뒤, 구직자의 실제 정량 성과 및 구체적 도구 활용 경험으로 직접 리라이팅하는 것이 핵심입니다.",
@@ -242,12 +242,12 @@
                 avatarBg: "bg-indigo-700",
                 question: "2026년 대다수 민간 기업은 조직 전체의 컬처핏보다 지원 부서의 '팀핏(Team-Fit)'을 중요하게 평가합니다. 자소서 협업 항목에서 구직자가 팀핏을 정밀하게 어필하도록 상담사가 지도해야 할 포인트는 무엇입니까?",
                 options: [
-                    "\"어떤 사람과도 잘 어울리는 뛰어난 친화력을 가졌습니다\"라는 성격적 진술을 반복하게 한다.",
+                    "지원 회사 전체의 인재상과 기업 문화(Culture-Fit)를 분석하여, 이에 부합하는 본인의 인성적 장점 및 가치관을 일관되게 어필하도록 지도한다.",
                     "지원 팀이 실제 사용하는 일하는 방식(예: 빠른 피드백, 프로젝트 중심, AI 소통 툴 등)을 파악하고, 그와 유사했던 본인의 실제 협업 행동 및 갈등 중재 사례를 매칭하게 한다.",
-                    "팀 내에서 본인이 항상 주도권을 쥐고 모든 의사결정을 내렸음을 어필하게 한다."
+                    "이전 조직에서 본인이 항상 주도적으로 프로젝트를 이끌며 의사결정을 주도했던 리더십과 개인 성과 위주로 강조하도록 지도한다."
                 ],
                 correctIndex: 1,
-                explanation: "정답은 **2번**입니다! 팀핏은 단순히 '원만한 인성'을 뜻하는 것이 아니라 '해당 부서의 소통 리듬과 업무 방식에 즉시 적응할 수 있는가'입니다. 지원 팀의 특성 및 소통 방식과 구직자의 기존 경험을 연결해 주는 것이 맥락 지도의 핵심입니다.",
+                explanation: "정답은 **2번**입니다! 팀핏은 단순히 '전사적 문화 적합성'이나 '원만한 인성'을 뜻하는 것이 아니라 '해당 부서의 소통 리듬과 업무 방식에 즉시 적응할 수 있는가'입니다. 지원 팀의 특성 및 소통 방식과 구직자의 기존 경험을 연결해 주는 것이 맥락 지도의 핵심입니다.",
                 source: "《채용트렌드 2026》 및 바른채용인증원 가이드",
                 counselorTip: "💡 상담 현장 멘트: '지원하신 팀의 채용공고와 리더 인터뷰를 살펴보고, 이 팀이 일하는 방식과 가장 비슷했던 경험 하나를 골라 조화 방식을 적어봅시다.'"
             },
@@ -261,12 +261,12 @@
                 avatarBg: "bg-amber-700",
                 question: "수시 채용과 경력자 선호가 강해진 2026년, 단기 인턴이나 이전 직장 경력이 있는 중고신입 구직자에게 상담사가 권장해야 할 가장 효과적인 서류 배치 및 작성 전략은 무엇입니까?",
                 options: [
-                    "전 직장에서 퇴사하게 된 개인적 사유와 불만을 자기소개서 지원동기 항목에 상세히 서술한다.",
+                    "이전 직장에서 담당했던 모든 세부 업무와 일자별 작업 내역을 시간 순서(편년체)로 빠짐없이 작성하여 직무 성실성을 보여주도록 지도한다.",
                     "지원 직무와 연결되는 핵심 성과(Key Accomplishments)를 최상단 경력기술서에 배치하고, 이전 업무 경험을 지원 직무 역량으로 재해석하여 어필한다.",
-                    "이전 직장의 일상적이고 반복적인 행정 잡무 절차를 시간 순서대로 길게 기술한다."
+                    "이전 직장의 높은 브랜드 가치, 조직 규모, 소속 부서의 연혁을 상세히 기술하여 본인의 서류 스펙을 높이도록 지도한다."
                 ],
                 correctIndex: 1,
-                explanation: "정답은 **2번**입니다! 중고신입 지도 시 이전 직장의 퇴사 사유나 일상 잡무 나열은 불리합니다. 지원하는 새로운 직무에 '즉시 기여 가능한 핵심 성과'를 최상단 경력기술서 요약(Executive Summary)으로 전면 배치하는 포지셔닝이 필수입니다.",
+                explanation: "정답은 **2번**입니다! 중고신입 지도 시 단순히 일상 잡무를 시간순으로 나열하거나 전 직장 규모만 자랑하는 것은 불리합니다. 지원하는 새로운 직무에 '즉시 기여 가능한 핵심 성과'를 최상단 경력기술서 요약(Executive Summary)으로 전면 배치하는 포지셔닝이 필수입니다.",
                 source: "인크루트 & 사람인 2026 경력/중고신입 채용 동향",
                 counselorTip: "💡 상담 현장 멘트: '이전 직장에서 하신 일 중, 새로 지원하는 직무의 핵심 과제와 연결되는 성과 2~3가지를 최상단에 요약 박스로 뽑아냅시다.'"
             },
@@ -281,8 +281,8 @@
                 question: "최근 기업의 ATS(채용 관리 시스템) 알고리즘은 단순히 단어를 복사해 넣은 키워드 스터핑(Keyword Stuffing)을 감지해 차단합니다. ATS를 안전하게 통과하면서 평가위원의 공감을 얻기 위한 키워드 지도법은 무엇입니까?",
                 options: [
                     "채용 공고(JD)의 주요 직무 단어를 자소서 문장 맥락 속에서 본인의 실무 경험 및 결과 수치와 자연스럽게 결합하여 작성하도록 지도한다.",
-                    "자소서 맨 밑에 채용 공고의 모든 필수 키워드를 흰색 글씨로 숨겨서 대량으로 나열하게 한다.",
-                    "직무 키워드 대신 감성적인 형용사와 포부 단어 위주로 작성하도록 지도한다."
+                    "채용 공고(JD)에 명시된 자격요건의 핵심 키워드들을 자기소개서 각 문항의 소제목과 서두에 최대한 많이 반복 배치하여 노출도를 극대화하도록 지도한다.",
+                    "ATS 필터링 오류를 방지하기 위해 직무 전문 용어보다는 누구나 쉽게 이해할 수 있는 평이한 보편적 어휘 위주로 재구성하도록 지도한다."
                 ],
                 correctIndex: 0,
                 explanation: "정답은 **1번**입니다! 최신 ATS 및 평가 알고리즘은 단어의 단순 출현 횟수가 아니라 '단어가 어떤 업무 맥락과 성과 수치 속에서 쓰였는가(Contextual Match)'를 평가합니다. JD 키워드가 구직자의 실무 행위와 결합하여 서술되도록 지도해야 합니다.",
@@ -292,79 +292,92 @@
             {
                 id: 5,
                 type: "subjective",
-                sender: "고용노동부 현장 지도 가이드",
-                emailSubject: "[2026 자소서 첨삭 05] 추상적 수식어 대체용 데이터 단위 (단답형)",
-                category: "단답형 · 문장 개편",
-                time: "오후 01:30",
+                sender: "한국직업능력연구원 서류지도팀",
+                emailSubject: "[2026 자소서 첨삭 05] 추상적 형용사 대체 수치화 지도",
+                category: "성과 수치 데이터",
+                time: "오전 11:30",
                 avatarBg: "bg-purple-700",
-                question: "구직자가 자소서에 \"책임감이 강해 어떤 업무든 성실히 수행합니다\"라는 추상 문장을 써왔습니다. 이를 검증 가능한 문장으로 개편하기 위해 상담사는 '성실함'이라는 주관적 형용사 대신 작성자가 취한 행동과 [ O O O O ] 데이터로 입증하도록 첨삭해야 합니다. 빈칸에 들어갈 단답형 키워드 4글자는 무엇입니까?",
-                acceptables: ["정량적수치", "정량성과", "수치성과", "정량데이터", "수치", "정량적", "정량"],
-                modelAnswer: "정량적 수치 (또는 정량 성과)",
-                explanation: "'성실함', '책임감' 등 주관적 형용사를 지우고, [달성한 숫자의 크기, 처리건수, 시간 단축 비율, 매출 증가율] 등 검증 가능한 **정량적 수치 성과**로 작성하도록 지도합니다.",
-                counselorTip: "💡 첨삭 예시: \"'성실하다'를 지우고, '야간 데이터 100건을 직접 검수하여 기한 내 100% 제출한 성과'처럼 숫자 수치로 적게 지도하세요.\""
+                question: "구직자가 '획기적으로 개선했다', '매우 성실하게 임했다'와 같은 주관적 형용사 위주로 작성했을 때, 상담사가 이를 객관적 입증이 가능하도록 교체하게 해야 하는 가장 핵심적인 데이터 유형(단어)은 무엇입니까? (힌트: 4글자 또는 2글자 개념, 예: 'OO적 수치' 또는 'OO 데이터')",
+                acceptableAnswers: ["정량적 수치", "정량적수치", "정량 수치", "정량수치", "정량 데이터", "정량데이터", "정량적 데이터", "정량적데이터", "수치 데이터", "수치데이터", "정량적", "정량"],
+                standardAnswer: "정량적 수치 (또는 정량 데이터)",
+                explanation: "정답은 **'정량적 수치'** (또는 정량 데이터)입니다! 주관적인 형용사나 자평은 평가자에게 신뢰를 주지 못합니다. 행위의 크기와 결과를 수치(%, 건수, 금액, 기간 등)로 입증해야 평가 점수를 얻을 수 있습니다.",
+                source: "2026 역량 기반 서류 평가 가이드라인",
+                counselorTip: "💡 상담 현장 멘트: ''열심히 했다' 대신 '작업 시간을 O시간에서 O시간으로 O% 단축했다'처럼 숫자 데이터를 넣어주세요.'"
             },
             {
                 id: 6,
                 type: "subjective",
-                sender: "한국고용정보원 경험 마이닝팀",
-                emailSubject: "[2026 자소서 첨삭 06] 지원 직무 비연관 경험의 적용 가능 역량 (단답형)",
-                category: "단답형 · 역량 재해석",
-                time: "오후 02:15",
+                sender: "고용노동부 직업상담 역량강화 센터",
+                emailSubject: "[2026 자소서 첨삭 06] 비연관 경험의 실무 직무 연결 지도",
+                category: "전이 역량(Transferable Skills)",
+                time: "오후 01:15",
                 avatarBg: "bg-emerald-700",
-                question: "카페 서빙 등 지원 직무와 직접적 관련이 없어 보이는 아르바이트 경험에서도 [고객 응대, 컴플레인 해결, 데이터 관리]처럼 타 직무로 옮겨가서도 유효하게 발휘될 수 있는 공통 역량을 발굴해 주는 첨삭 기법을 '[ O O ] 역량 재해석'이라고 합니다. 빈칸에 들어갈 2글자 단답형 용어는 무엇입니까?",
-                acceptables: ["전이", "전이역량", "transferable", "transferableskills"],
-                modelAnswer: "전이 (전이 역량 / Transferable Skills)",
-                explanation: "아르바이트 경험을 '단순 노동'에 묶어두지 않고 타 직무로 옮겨 적용 가능한 **전이 역량(Transferable Skills)**으로 포지셔닝해 주는 것이 직업상담사의 핵심 재해석 역할입니다.",
-                counselorTip: "💡 첨삭 멘트: \"'커피를 서빙했다'가 아니라 '고객 응대 데이터를 분석해 매뉴얼을 개선하고 재방문율을 높인 고객관리 전이 역량'으로 시각을 바꿔봅시다.\""
+                question: "아르바이트나 비직무 경험을 가진 구직자의 서류 지도 시, 이전 경험에서 형성된 문제해결·데이터 관리·소통 방식 등의 핵심 스킬을 지원 직무로 적용해내는 역량 개념을 무엇이라 합니까? (힌트: OOOO, 'OO 역량')",
+                acceptableAnswers: ["전이 역량", "전이역량", "전이 스킬", "전이스킬", "전이역량스킬", "전이"],
+                standardAnswer: "전이 역량 (Transferable Skills)",
+                explanation: "정답은 **'전이 역량'**입니다! 직무 관련 직접 경험이 없더라도, 기존 경험에서 발휘한 분석력, 소통력, 문제 해결력 등 다른 직무로 옮겨 적용될 수 있는 능력을 강조하는 첨삭이 핵심입니다.",
+                source: "NCS 기반 직업상담 역량 가이드북",
+                counselorTip: "💡 상담 현장 멘트: '아르바이트 경험도 고객 응대 데이터를 분류하거나 매뉴얼을 개선한 관점으로 적으면 훌륭한 직무 전이 역량이 됩니다.'"
             },
             {
                 id: 7,
                 type: "subjective",
-                sender: "채용공정성 및 서류평가위원회",
-                emailSubject: "[2026 자소서 첨삭 07] 지원동기의 관점 전환 개념 (단답형)",
-                category: "단답형 · 지원동기 개편",
-                time: "오후 03:00",
+                sender: "2026 민간/공공 서류 평가위원단",
+                emailSubject: "[2026 자소서 첨삭 07] 지원동기 '3인칭 찬사' 탈피 지도",
+                category: "직무 기여 관점",
+                time: "오후 02:00",
                 avatarBg: "bg-rose-700",
-                question: "지원동기가 \"OO기업은 업계 최고여서 지원했습니다\"와 같이 회사를 칭찬하는 '3인칭 기업 찬사'로 가득할 때, 서류 합격률을 높이려면 구직자 본인의 역량으로 회사의 문제를 해결할 수 있음을 강조하는 '[ O O O O ] 관점'으로 주어를 바꿔야 합니다. 빈칸에 들어갈 4글자 단답형 용어는 무엇입니까?",
-                acceptables: ["직무기여", "기여가치", "직무기여가치", "기여", "해결가치"],
-                modelAnswer: "직무 기여 (또는 기여 가치)",
-                explanation: "회사를 자랑하는 3인칭 관점은 감점 요소입니다. 기업의 최근 이슈와 채용 직무 과제(JD)에 구직자가 보유한 역량으로 **직무 기여 가치**를 제공하겠다는 1인칭 관점으로 지도해야 합니다.",
-                counselorTip: "💡 첨삭 멘트: \"'회사가 훌륭해서 지원했다'는 지우고, '회사의 OO 과제를 나의 OO 역량으로 어떻게 해결해 기여하겠다'로 바꿉시다.\""
+                question: "지원동기 항목에서 기업의 역사나 명성을 나열하는 '3인칭 예찬글'을 작성한 구직자에게, 자신이 입사하여 가져올 가치와 문제를 해결할 관점으로 전환시키기 위해 강조해야 할 핵심 관점(단어)은 무엇입니까? (힌트: 'OO 기여' 또는 'OO 가치')",
+                acceptableAnswers: ["직무 기여", "직무기여", "기여 가치", "기여가치", "직무 기여 관점", "직무기여관점", "기여"],
+                standardAnswer: "직무 기여 (또는 기여 가치)",
+                explanation: "정답은 **'직무 기여'**입니다! 평가자는 회사의 훌륭한 점을 듣고 싶은 것이 아니라, 구직자가 들어와서 '어떤 직무 문제를 해결하고 무엇에 기여할 것인가'를 확인하고자 합니다.",
+                source: "2026 채용 트렌드 서류 평가 솔루션",
+                counselorTip: "💡 상담 현장 멘트: '회사 칭찬은 지우고, 지원자의 역량으로 이 부서의 어떤 현안을 해결해 줄 수 있는지 기여점을 적으세요.'"
             }
         ];
 
         // State Tracking
-        let userAnswers = {}; // qIndex: { selectedOption / userText, isCorrect }
+        let userAnswers = {}; // { qIndex: selectedIndex } for objective
+        let userSubjectiveAnswers = {}; // { qIndex: textInput } for subjective
+        let userSubjectiveScores = {}; // { qIndex: boolean } for subjective pass/fail
 
-        // Render Questions
+        // Helper: Strip spaces and special characters for flexible subjective grading
+        function normalizeText(str) {
+            if (!str) return "";
+            return str.replace(/[\s\t\n\r\.\,\-\_]/g, "").toLowerCase();
+        }
+
+        // Render Quiz Cards
         function renderQuiz() {
             const container = document.getElementById('quiz-container');
             container.innerHTML = '';
 
             quizData.forEach((q, index) => {
                 const card = document.createElement('div');
-                card.className = "bg-white rounded-2xl border border-slate-200 shadow-md3-1 hover:shadow-md3-2 transition-all p-4 sm:p-5 space-y-3.5 relative overflow-hidden";
+                card.className = "bg-white rounded-2xl border border-slate-200/90 shadow-md3-1 hover:shadow-md3-2 transition-all p-4 sm:p-6 space-y-3.5 sm:space-y-4 relative overflow-hidden";
                 card.id = `q-card-${index}`;
 
-                const isAnswered = userAnswers.hasOwnProperty(index);
+                const isObjective = (q.type === "objective");
+                const isAnswered = isObjective ? userAnswers.hasOwnProperty(index) : userSubjectiveScores.hasOwnProperty(index);
+                const selectedAns = userAnswers[index];
 
-                let questionContentHtml = '';
+                let questionBodyHtml = '';
 
-                if (q.type === 'objective') {
-                    const selectedObj = userAnswers[index];
-                    questionContentHtml = `
-                        <div class="grid grid-cols-1 gap-2 pt-1">
+                if (isObjective) {
+                    // Objective Options List
+                    questionBodyHtml = `
+                        <div class="grid grid-cols-1 gap-2 pt-1.5 sm:pt-2">
                             ${q.options.map((opt, optIdx) => {
-                                let btnStyle = "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100";
-                                let icon = '<span class="w-5 h-5 rounded-full border border-slate-400 flex items-center justify-center text-xs text-slate-500 mr-2.5 shrink-0">' + (optIdx + 1) + '</span>';
+                                let btnStyle = "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100 hover:border-slate-300";
+                                let icon = `<span class="w-5 h-5 rounded-full border border-slate-400 flex items-center justify-center text-xs text-slate-500 mr-2.5 shrink-0">${optIdx + 1}</span>`;
 
                                 if (isAnswered) {
                                     if (optIdx === q.correctIndex) {
                                         btnStyle = "bg-emerald-50 border-emerald-500 text-emerald-900 font-bold ring-2 ring-emerald-400/30";
-                                        icon = '<span class="material-symbols-outlined text-emerald-600 mr-2 text-lg shrink-0">check_circle</span>';
-                                    } else if (selectedObj && optIdx === selectedObj.userAnswer) {
+                                        icon = '<span class="material-symbols-outlined text-emerald-600 mr-2 text-xl shrink-0">check_circle</span>';
+                                    } else if (optIdx === selectedAns) {
                                         btnStyle = "bg-red-50 border-red-400 text-red-900 font-semibold";
-                                        icon = '<span class="material-symbols-outlined text-red-500 mr-2 text-lg shrink-0">cancel</span>';
+                                        icon = '<span class="material-symbols-outlined text-red-500 mr-2 text-xl shrink-0">cancel</span>';
                                     } else {
                                         btnStyle = "bg-slate-50 border-slate-200 text-slate-400 opacity-60 cursor-not-allowed";
                                     }
@@ -372,9 +385,9 @@
 
                                 return `
                                     <button 
-                                        onclick="selectObjectiveAnswer(${index}, ${optIdx})" 
+                                        onclick="selectAnswer(${index}, ${optIdx})" 
                                         ${isAnswered ? 'disabled' : ''} 
-                                        class="w-full text-left p-3 sm:p-3.5 rounded-xl border text-xs sm:text-sm flex items-center transition-all ${btnStyle} active:scale-[0.99]">
+                                        class="w-full text-left p-3 sm:p-3.5 rounded-xl border text-xs sm:text-sm flex items-center transition-all ${btnStyle}">
                                         ${icon}
                                         <span class="flex-1 leading-snug">${opt}</span>
                                     </button>
@@ -383,83 +396,98 @@
                         </div>
                     `;
                 } else {
-                    // Short-Answer Subjective
-                    const ansData = userAnswers[index];
-                    const userText = ansData ? ansData.userText : '';
-                    const isCorrectSubj = ansData ? ansData.isCorrect : false;
+                    // Subjective Input Form
+                    const currentInput = userSubjectiveAnswers[index] || "";
+                    const isPassed = userSubjectiveScores[index] === true;
 
-                    questionContentHtml = `
-                        <div class="space-y-2.5 pt-1">
-                            <div class="flex flex-col sm:flex-row gap-2">
-                                <input 
-                                    type="text" 
-                                    id="subj-input-${index}" 
-                                    value="${userText}"
-                                    ${isAnswered ? 'disabled' : ''} 
-                                    placeholder="정답 단어를 적어주세요 (예: 정량적 수치)" 
-                                    onkeydown="if(event.key==='Enter') submitSubjectiveAnswer(${index})"
-                                    class="flex-1 p-3 text-base sm:text-sm border ${isAnswered ? (isCorrectSubj ? 'border-emerald-500 bg-emerald-50 text-emerald-900 font-bold' : 'border-red-400 bg-red-50 text-red-900 font-semibold') : 'border-slate-300 bg-slate-50 focus:border-blue-500 focus:bg-white'} rounded-xl outline-none transition-all disabled:opacity-90 shrink-0" />
-                                
-                                ${!isAnswered ? `
+                    if (!isAnswered) {
+                        questionBodyHtml = `
+                            <div class="pt-2 space-y-2.5">
+                                <div class="flex items-center gap-2">
+                                    <input 
+                                        type="text" 
+                                        id="sub-input-${index}" 
+                                        placeholder="정답 단어를 입력하세요 (예: 정량적 수치)" 
+                                        value="${currentInput}" 
+                                        class="flex-1 bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-3 text-base sm:text-sm text-slate-900 focus:outline-none focus:border-blue-600 focus:bg-white transition-all shadow-inner"
+                                        onkeydown="if(event.key==='Enter') checkSubjectiveAnswer(${index})"
+                                    >
                                     <button 
-                                        onclick="submitSubjectiveAnswer(${index})" 
-                                        class="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-sm hover:shadow transition-all flex items-center justify-center gap-1 shrink-0 active:scale-95">
-                                        <span class="material-symbols-outlined text-base">task_alt</span>
-                                        <span>정답 확인</span>
+                                        onclick="checkSubjectiveAnswer(${index})" 
+                                        class="px-4 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm shrink-0 shadow-sm transition-all active:scale-95 flex items-center gap-1">
+                                        <span>정답 제출</span>
+                                        <span class="material-symbols-outlined text-base">send</span>
                                     </button>
-                                ` : ''}
+                                </div>
                             </div>
-                        </div>
-                    `;
+                        `;
+                    } else {
+                        questionBodyHtml = `
+                            <div class="pt-2 space-y-2">
+                                <div class="p-3.5 rounded-xl border ${isPassed ? 'bg-emerald-50 border-emerald-300 text-emerald-950' : 'bg-red-50 border-red-300 text-red-950'} flex items-center justify-between text-xs sm:text-sm">
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined ${isPassed ? 'text-emerald-600' : 'text-red-500'} font-bold">
+                                            ${isPassed ? 'check_circle' : 'cancel'}
+                                        </span>
+                                        <span>내가 입력한 답: <strong>"${userSubjectiveAnswers[index]}"</strong></span>
+                                    </div>
+                                    <span class="font-bold px-2 py-0.5 rounded text-[11px] ${isPassed ? 'bg-emerald-200 text-emerald-900' : 'bg-red-200 text-red-900'}">
+                                        ${isPassed ? '정답 인정' : '오답'}
+                                    </span>
+                                </div>
+                                <div class="text-xs text-slate-600 px-1">
+                                    * 권장 모범 답안: <strong class="text-blue-700">${q.standardAnswer}</strong>
+                                </div>
+                            </div>
+                        `;
+                    }
                 }
 
                 card.innerHTML = `
-                    <!-- Card Header -->
+                    <!-- Card Header (Email Style) -->
                     <div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-2.5">
                         <div class="flex items-center gap-2.5">
-                            <div class="w-8 h-8 rounded-full ${q.avatarBg} text-white font-bold flex items-center justify-center text-xs shadow-sm shrink-0">
+                            <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full ${q.avatarBg} text-white font-bold flex items-center justify-center text-xs sm:text-sm shadow-sm shrink-0">
                                 ${q.sender.charAt(0)}
                             </div>
                             <div>
                                 <div class="flex items-center gap-1.5 flex-wrap">
                                     <span class="font-bold text-slate-800 text-xs sm:text-sm">${q.sender}</span>
-                                    <span class="text-[10px] sm:text-[11px] ${q.type === 'subjective' ? 'bg-purple-100 text-purple-800 border border-purple-200' : 'bg-slate-100 text-slate-600'} px-2 py-0.5 rounded-md font-semibold">${q.category}</span>
+                                    <span class="text-[10px] sm:text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md font-semibold">${q.category}</span>
                                 </div>
-                                <h2 class="text-[11px] sm:text-xs font-semibold text-slate-500 line-clamp-1">${q.emailSubject}</h2>
+                                <h2 class="text-xs text-slate-500 line-clamp-1">${q.emailSubject}</h2>
                             </div>
                         </div>
                         <span class="text-[11px] text-slate-400 shrink-0">${q.time}</span>
                     </div>
 
                     <!-- Question Content -->
-                    <div class="space-y-2.5">
+                    <div class="space-y-2">
                         <div class="flex items-start gap-2">
-                            <span class="${q.type === 'subjective' ? 'bg-purple-600 text-white' : 'bg-blue-100 text-blue-900'} text-[11px] font-bold px-2 py-0.5 rounded-full shrink-0 mt-0.5">문항 ${index + 1} (${q.type === 'subjective' ? '단답형' : '객관식'})</span>
+                            <span class="bg-blue-100 text-blue-900 text-xs font-extrabold px-2 py-0.5 rounded-md shrink-0 mt-0.5">
+                                Q${index + 1} [${isObjective ? '객관식' : '단답형'}]
+                            </span>
                             <p class="text-xs sm:text-sm font-semibold text-slate-900 leading-relaxed">${q.question}</p>
                         </div>
 
-                        ${questionContentHtml}
+                        ${questionBodyHtml}
                     </div>
 
                     <!-- Instant Explanation Panel -->
                     ${isAnswered ? `
-                        <div class="mt-3 p-3.5 rounded-xl ${userAnswers[index].isCorrect ? 'bg-emerald-50 border-emerald-200' : 'bg-amber-50 border-amber-200'} border space-y-1.5 animate-fade-in">
-                            <div class="flex items-center gap-1.5 font-bold text-xs ${userAnswers[index].isCorrect ? 'text-emerald-800' : 'text-amber-800'}">
-                                <span class="material-symbols-outlined text-base">${userAnswers[index].isCorrect ? 'check_circle' : 'cancel'}</span>
-                                <span>${userAnswers[index].isCorrect ? '정답입니다!' : '오답입니다. 정답과 해설을 확인하세요.'}</span>
+                        <div class="mt-3 p-3.5 sm:p-4 rounded-xl ${ (isObjective ? selectedAns === q.correctIndex : userSubjectiveScores[index]) ? 'bg-emerald-50/90 border-emerald-200' : 'bg-amber-50/90 border-amber-200'} border space-y-2 animate-fade-in">
+                            <div class="flex items-center gap-1.5 font-bold text-xs ${ (isObjective ? selectedAns === q.correctIndex : userSubjectiveScores[index]) ? 'text-emerald-800' : 'text-amber-900'}">
+                                <span class="material-symbols-outlined text-base">
+                                    ${ (isObjective ? selectedAns === q.correctIndex : userSubjectiveScores[index]) ? 'sentiment_very_satisfied' : 'info'}
+                                </span>
+                                <span>${ (isObjective ? selectedAns === q.correctIndex : userSubjectiveScores[index]) ? '정답입니다! 지도 핵심 맥락을 정확히 파악하셨습니다.' : '핵심 지도 해설을 확인해 보세요.'}</span>
                             </div>
-
-                            ${q.type === 'subjective' ? `
-                                <div class="p-2.5 bg-white rounded-lg border ${userAnswers[index].isCorrect ? 'border-emerald-200' : 'border-amber-200'} text-xs text-slate-800 space-y-1">
-                                    <div><strong>📌 표준 정답:</strong> <span class="text-blue-700 font-bold">${q.modelAnswer}</span></div>
-                                    <p class="text-slate-600 leading-relaxed">${q.explanation}</p>
-                                </div>
-                            ` : `
-                                <p class="text-xs text-slate-800 leading-relaxed">${q.explanation}</p>
-                            `}
-
-                            <div class="p-2 rounded-lg bg-white/90 border border-slate-200 text-xs text-blue-900 font-medium">
+                            <p class="text-xs sm:text-sm text-slate-800 leading-relaxed">${q.explanation}</p>
+                            <div class="text-[11px] text-blue-900 bg-blue-50/80 p-2.5 rounded-lg border border-blue-100 mt-2 font-medium">
                                 ${q.counselorTip}
+                            </div>
+                            <div class="text-[10px] sm:text-[11px] text-slate-400 pt-1">
+                                📖 출처 및 근거: <strong>${q.source}</strong>
                             </div>
                         </div>
                     ` : ''}
@@ -472,113 +500,119 @@
         }
 
         // Objective Selection Handler
-        function selectObjectiveAnswer(qIndex, optIndex) {
+        function selectAnswer(qIndex, optIndex) {
             if (userAnswers.hasOwnProperty(qIndex)) return;
 
-            const isCorrect = (optIndex === quizData[qIndex].correctIndex);
-            userAnswers[qIndex] = {
-                userAnswer: optIndex,
-                isCorrect: isCorrect
-            };
-
+            userAnswers[qIndex] = optIndex;
             renderQuiz();
-            scrollToCard(qIndex);
-            checkAllCompleted();
-        }
 
-        // Short-Answer Subjective Submission Handler
-        function submitSubjectiveAnswer(qIndex) {
-            const inputEl = document.getElementById(`subj-input-${qIndex}`);
-            const textVal = inputEl ? inputEl.value.trim() : '';
-            if (!textVal) {
-                inputEl.focus();
-                return;
-            }
-
-            // Normalize input (strip spaces, lowercase)
-            const normalized = textVal.toLowerCase().replace(/\s+/g, '');
-            const acceptables = quizData[qIndex].acceptables || [];
-
-            const isCorrect = acceptables.some(acc => normalized.includes(acc.toLowerCase().replace(/\s+/g, '')));
-
-            userAnswers[qIndex] = {
-                userText: textVal,
-                isCorrect: isCorrect
-            };
-
-            renderQuiz();
-            scrollToCard(qIndex);
-            checkAllCompleted();
-        }
-
-        // Scroll Helper
-        function scrollToCard(qIndex) {
             const cardEl = document.getElementById(`q-card-${qIndex}`);
             if (cardEl) {
                 cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
+
+            checkCompletion();
         }
 
-        // Progress Update
-        function updateProgress() {
-            const answeredCount = Object.keys(userAnswers).length;
-            const progressPercent = (answeredCount / quizData.length) * 100;
-            
-            // Desktop
-            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
-            document.getElementById('progress-text').innerText = `${answeredCount} / ${quizData.length}`;
-            document.getElementById('unread-count').innerText = quizData.length - answeredCount;
+        // Subjective Input Answer Checker
+        function checkSubjectiveAnswer(qIndex) {
+            const inputEl = document.getElementById(`sub-input-${qIndex}`);
+            if (!inputEl) return;
 
-            // Mobile
-            document.getElementById('mobile-progress-bar').style.width = `${progressPercent}%`;
-            document.getElementById('mobile-progress-text').innerText = `${answeredCount} / ${quizData.length}`;
+            const rawVal = inputEl.value.trim();
+            if (!rawVal) {
+                alert("답을 입력해 주세요.");
+                inputEl.focus();
+                return;
+            }
 
-            let correctCount = 0;
-            Object.keys(userAnswers).forEach(idx => {
-                if (userAnswers[idx].isCorrect) correctCount++;
-            });
-            document.getElementById('correct-count').innerText = correctCount;
+            userSubjectiveAnswers[qIndex] = rawVal;
+
+            const normalizedInput = normalizeText(rawVal);
+            const acceptableList = quizData[qIndex].acceptableAnswers.map(a => normalizeText(a));
+
+            const isCorrect = acceptableList.some(acc => normalizedInput.includes(acc) || acc.includes(normalizedInput));
+            userSubjectiveScores[qIndex] = isCorrect;
+
+            renderQuiz();
+
+            const cardEl = document.getElementById(`q-card-${qIndex}`);
+            if (cardEl) {
+                cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            checkCompletion();
         }
 
-        // Check Completion
-        function checkAllCompleted() {
-            if (Object.keys(userAnswers).length === quizData.length) {
-                setTimeout(showFinalResultModal, 500);
+        // Check if all 7 questions completed
+        function checkCompletion() {
+            const totalAnswered = Object.keys(userAnswers).length + Object.keys(userSubjectiveScores).length;
+            if (totalAnswered === quizData.length) {
+                setTimeout(showFinalResultModal, 600);
             }
         }
 
-        // Show Final Result Modal
+        // Update Progress Tracker
+        function updateProgress() {
+            const totalAnswered = Object.keys(userAnswers).length + Object.keys(userSubjectiveScores).length;
+            const progressPercent = (totalAnswered / quizData.length) * 100;
+            
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('progress-text').innerText = `${totalAnswered} / ${quizData.length}`;
+            document.getElementById('unread-count').innerText = quizData.length - totalAnswered;
+
+            if (document.getElementById('mobile-progress-bar')) {
+                document.getElementById('mobile-progress-bar').style.width = `${progressPercent}%`;
+                document.getElementById('mobile-progress-text').innerText = `${totalAnswered} / ${quizData.length}`;
+            }
+
+            // Calculate total correct answers
+            let correctCount = 0;
+            Object.keys(userAnswers).forEach(idx => {
+                if (userAnswers[idx] === quizData[idx].correctIndex) correctCount++;
+            });
+            Object.keys(userSubjectiveScores).forEach(idx => {
+                if (userSubjectiveScores[idx] === true) correctCount++;
+            });
+
+            document.getElementById('correct-count').innerText = correctCount;
+        }
+
+        // Final Score Result Modal (Score >= 4 Pass)
         function showFinalResultModal() {
             let correctCount = 0;
             Object.keys(userAnswers).forEach(idx => {
-                if (userAnswers[idx].isCorrect) correctCount++;
+                if (userAnswers[idx] === quizData[idx].correctIndex) correctCount++;
+            });
+            Object.keys(userSubjectiveScores).forEach(idx => {
+                if (userSubjectiveScores[idx] === true) correctCount++;
             });
 
-            const isPassed = correctCount >= 4; // Pass if 4 or more out of 7
+            const isPassed = correctCount >= 4;
             const modal = document.getElementById('result-modal');
             const header = document.getElementById('result-header');
 
             if (isPassed) {
                 header.innerHTML = `
-                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-1">
-                        <span class="material-symbols-outlined text-emerald-600 text-base">verified</span>
-                        <span>서류 첨삭 역량 평가 통과 (PASS)</span>
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-bold mb-2">
+                        <span class="material-symbols-outlined text-emerald-600">verified</span>
+                        <span>서류 지도 역량 평가 통과 (PASS)</span>
                     </div>
                     <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">🎉 축하합니다! (${correctCount} / 7개 정답)</h2>
-                    <p class="text-xs sm:text-sm font-bold text-blue-700 mt-1">2026년 최신 자소서 첨삭 핵심 지침을 완벽히 마스터하셨습니다!</p>
-                    <div class="pt-2 text-xs sm:text-sm font-bold text-amber-800 flex items-center justify-center gap-1.5 bg-amber-50 p-3 rounded-xl border border-amber-200 mt-2">
-                        <span class="material-symbols-outlined text-amber-500 text-xl">favorite</span>
+                    <p class="text-sm sm:text-base font-bold text-blue-700 mt-1">2026년 합격 자소서 지도 핵심 역량을 완벽히 갖추셨습니다!</p>
+                    <div class="pt-3 text-sm sm:text-base font-extrabold text-amber-800 flex items-center justify-center gap-2 bg-amber-50 p-3.5 rounded-2xl border border-amber-200">
+                        <span class="material-symbols-outlined text-amber-500">stars</span>
                         <span>현장에서 구직자들의 꿈을 밝혀주시는 직업상담사님의 열정과 노고를 깊이 응원합니다! ✨</span>
                     </div>
                 `;
             } else {
                 header.innerHTML = `
-                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold mb-1">
-                        <span class="material-symbols-outlined text-amber-600 text-base">edit_note</span>
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 text-amber-800 text-xs sm:text-sm font-bold mb-2">
+                        <span class="material-symbols-outlined text-amber-600">auto_fix_high</span>
                         <span>복습 권장 (${correctCount} / 7개 정답)</span>
                     </div>
-                    <h2 class="text-xl font-bold text-slate-900">2026 자소서 첨삭 포인트를 조금 더 점검해보세요!</h2>
-                    <p class="text-xs text-slate-600 mt-1">4개 이상 정답 시 '통과' 마크와 핵심 가이드가 완성됩니다.</p>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900">아쉽지만 핵심 포인트를 다시 점검해 보세요!</h2>
+                    <p class="text-xs sm:text-sm text-slate-600 mt-1">4문제 이상 맞추시면 '역량 검증 통과' 마크와 상담사 응원 메시지가 표시됩니다.</p>
                 `;
             }
 
@@ -589,35 +623,37 @@
         // Reset Quiz
         function resetQuiz() {
             userAnswers = {};
+            userSubjectiveAnswers = {};
+            userSubjectiveScores = {};
             document.getElementById('result-modal').classList.add('hidden');
             renderQuiz();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // Scroll to top
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Initialization
+        // Anti-Copy & Anti-Inspection Guardrails
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            // Prevent F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+C
+            if (
+                e.key === 'F12' ||
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+                (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 'c' || e.key === 'C'))
+            ) {
+                e.preventDefault();
+            }
+        });
+        document.addEventListener('selectstart', e => e.preventDefault());
+        document.addEventListener('dragstart', e => e.preventDefault());
+
+        // Initialize App on Load
         window.onload = function() {
             renderQuiz();
-            
-            // 복사 방지 보안 스크립트 (우클릭, 단축키, 개발자도구 차단)
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-            });
-
-            document.addEventListener('keydown', function(e) {
-                // F12, Ctrl+C, Ctrl+U(소스보기), Ctrl+S, Ctrl+Shift+I 차단
-                if (
-                    e.key === 'F12' ||
-                    (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S' || e.key === 'a' || e.key === 'A')) ||
-                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c'))
-                ) {
-                    e.preventDefault();
-                }
-            });
-        }
+        };
     </script>
 </body>
 </html>
