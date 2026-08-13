@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2026 고용노동부 직업상담사 서류 지도 역량 퀴즈 (모바일 최적화)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        md: {
+                            surface: '#F8FAFD',
+                            'surface-variant': '#E1E8F0',
+                            'container': '#EDF2F9',
+                            'primary': '#0B57D0',
+                            'primary-container': '#D3E3FD',
+                            'on-primary-container': '#041E49',
+                            'secondary': '#00639B',
+                            'card-bg': '#FFFFFF',
+                            'outline': '#C4C7C5',
+                            'success': '#146C2E',
+                            'success-bg': '#E8F5E9',
+                            'error': '#B3261E',
+                            'error-bg': '#FCE8E6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'md3-1': '0px 1px 3px 1px rgba(0, 0, 0, 0.08), 0px 1px 2px 0px rgba(0, 0, 0, 0.12)',
+                        'md3-2': '0px 2px 6px 2px rgba(0, 0, 0, 0.12), 0px 1px 2px 0px rgba(0, 0, 0, 0.08)',
+                        'md3-3': '0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F8FAFD;
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            color: #1F1F1F;
+            -webkit-tap-highlight-color: transparent;
+            /* 복사 방지: 드래그 및 텍스트 선택 금지 */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F8FAFD;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C4C7C5;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden text-slate-800">
+
+    <!-- Top App Bar (MD3 Mobile Optimized Header) -->
+    <header class="bg-md-surface border-b border-slate-200 px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between shrink-0 gap-2 z-20">
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+            <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-700 flex items-center justify-center text-white font-bold shadow-sm">
+                <span class="material-symbols-outlined text-lg sm:text-xl">edit_note</span>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-sm sm:text-base font-bold tracking-tight text-slate-800 leading-none">WorkCounselor Mail</span>
+                <span class="text-[10px] font-semibold text-blue-700">고용노동부 서류지도 전용</span>
+            </div>
+        </div>
+
+        <!-- Right Badge & Reset -->
+        <div class="flex items-center gap-1.5">
+            <button onclick="resetQuiz()" class="text-xs font-semibold text-slate-600 hover:text-md-primary px-2.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 flex items-center gap-1 transition-all active:scale-95">
+                <span class="material-symbols-outlined text-base">refresh</span>
+                <span class="hidden sm:inline">초기화</span>
+            </button>
+            <div class="w-8 h-8 rounded-full bg-emerald-600 text-white font-bold flex items-center justify-center text-xs shadow-sm">
+                상담
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Layout -->
+    <div class="flex-1 flex overflow-hidden">
+        
+        <!-- Navigation Sidebar Drawer (Desktop) -->
+        <aside id="sidebar" class="w-64 bg-md-surface p-3 flex-col justify-between shrink-0 border-r border-slate-200 hidden md:flex transition-all">
+            <div class="space-y-1">
+                <button class="w-full flex items-center gap-3 px-4 py-3 rounded-full bg-md-primary-container text-md-on-primary-container font-semibold text-sm transition-all shadow-sm">
+                    <span class="material-symbols-outlined filled">inbox</span>
+                    <span>첨삭 지도 퀴즈 모듈</span>
+                    <span id="unread-count" class="ml-auto bg-md-primary text-white text-xs px-2 py-0.5 rounded-full font-bold">7</span>
+                </button>
+
+                <div class="pt-4 border-t border-slate-200 mt-4 px-3 space-y-3">
+                    <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">구성 문항 (7문항)</div>
+                    <ul class="text-xs text-slate-600 space-y-2 font-medium">
+                        <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-500"></span>[객관식] AI 자소서 고유성 리라이팅</li>
+                        <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-500"></span>[객관식] 팀핏(Team-Fit) 경험 매칭</li>
+                        <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-500"></span>[객관식] 중고신입/경력 직무 포지셔닝</li>
+                        <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-teal-500"></span>[객관식] ATS 키워드 문맥 결합 지도</li>
+                        <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-purple-500"></span>[단답형] 추상 형용사 대체 수치 데이터</li>
+                        <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span>[단답형] 비연관 경험의 전이 역량</li>
+                        <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-rose-500"></span>[단답형] 지원동기 직무 기여 관점</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Quiz Progress Tracker (Desktop Sidebar) -->
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="flex items-center justify-between text-xs font-semibold text-slate-600">
+                    <span>진행 현황</span>
+                    <span id="progress-text" class="text-md-primary font-bold">0 / 7</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                    <div id="progress-bar" class="bg-md-primary h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <div id="score-counter" class="text-xs text-slate-500 font-medium text-center pt-1">
+                    완료/정답: <span id="correct-count" class="font-bold text-emerald-600">0</span>개
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Feed -->
+        <main class="flex-1 flex flex-col overflow-y-auto p-3 sm:p-6 bg-md-surface gap-3 sm:gap-4 pb-24">
+            
+            <!-- Mobile Sticky Top Bar Progress -->
+            <div class="md:hidden bg-white px-3.5 py-2.5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between gap-3 shrink-0">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-blue-600 text-lg">task_alt</span>
+                    <span class="text-xs font-bold text-slate-700">퀴즈 진행: <span id="mobile-progress-text" class="text-blue-600 font-extrabold">0 / 7</span></span>
+                </div>
+                <div class="w-28 bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div id="mobile-progress-bar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Banner Header -->
+            <div class="bg-white p-3.5 sm:p-5 rounded-2xl border border-slate-200 shadow-md3-1 flex flex-wrap items-center justify-between gap-2.5">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-blue-100 text-blue-800 flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-xl sm:text-2xl">workspace_premium</span>
+                    </div>
+                    <div>
+                        <h1 class="text-sm sm:text-lg font-bold text-slate-900 leading-snug">2026 직업상담사 서류 첨삭 역량 평가</h1>
+                        <p class="text-[11px] sm:text-xs text-slate-500">실전 자소서 핵심 맥락 지도 퀴즈 (객관식 4문항 + 단답형 3문항)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Cards Container -->
+            <div id="quiz-container" class="space-y-3.5 sm:space-y-4 max-w-4xl mx-auto w-full">
+                <!-- Injected via JavaScript -->
+            </div>
+
+            <!-- Final Score Result Banner -->
+            <div id="result-modal" class="hidden bg-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-md3-3 max-w-3xl mx-auto w-full space-y-4 sm:space-y-6 animate-fade-in mt-4">
+                <div id="result-header" class="text-center space-y-2">
+                    <!-- Dynamic Header Content -->
+                </div>
+
+                <div class="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3 sm:space-y-4">
+                    <h3 class="font-bold text-slate-800 text-sm sm:text-base flex items-center gap-2">
+                        <span class="material-symbols-outlined text-blue-600 text-xl">psychology</span>
+                        <span>2026 합격 서류 첨삭 상담사의 핵심 지도 포인트</span>
+                    </h3>
+                    <ul class="text-xs sm:text-sm text-slate-700 space-y-2 list-disc list-inside leading-relaxed">
+                        <li><strong class="text-slate-900">정량적 수치 성과 데이터:</strong> 주관적 형용사를 배제하고 행동과 숫자 데이터로 입증하세요.</li>
+                        <li><strong class="text-slate-900">전이 역량(Transferable Skills) 발굴:</strong> 아르바이트/비직무 경험도 데이터·고객·프로세스 관점으로 재해석하세요.</li>
+                        <li><strong class="text-slate-900">직무 기여 관점 전환:</strong> 3인칭 기업 찬사를 지우고, 구직자의 1인칭 가치 및 문제해결 성과 중심으로 첨삭하세요.</li>
+                        <li><strong class="text-slate-900">AI 표면 문장 리라이팅:</strong> 정형화된 어휘를 구직자 고유의 성과 수치와 도구 명칭으로 교체 지도하세요.</li>
+                    </ul>
+                </div>
+
+                <div class="flex items-center justify-center pt-1">
+                    <button onclick="resetQuiz()" class="w-full sm:w-auto px-6 py-3 rounded-full bg-blue-600 text-white font-bold text-xs sm:text-sm shadow-md hover:bg-blue-700 transition-all flex items-center justify-center gap-2 active:scale-95">
+                        <span class="material-symbols-outlined text-lg">restart_alt</span>
+                        <span>퀴즈 다시 도전하기</span>
+                    </button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- MD3 Floating Action Button -->
+    <div class="fixed bottom-4 right-4 z-40">
+        <button onclick="scrollToTop()" class="flex items-center gap-2 bg-md-primary-container text-md-on-primary-container hover:bg-blue-200 active:scale-95 transition-all p-3.5 sm:p-4 rounded-2xl shadow-md3-2 border border-blue-200/50">
+            <span class="material-symbols-outlined text-xl sm:text-2xl font-semibold text-md-primary">vertical_align_top</span>
+            <span class="font-bold text-xs sm:text-sm text-md-on-primary-container">맨 위로</span>
+        </button>
+    </div>
+
+    <script>
+        // Quiz Data - 4 Objective + 3 Short-Answer Subjective
+        const quizData = [
+            {
+                id: 1,
+                type: "objective",
+                sender: "고용노동부 서류지도 연구팀",
+                emailSubject: "[2026 자소서 첨삭 01] AI 문체 오염 방지 및 고유성(Uniqueness) 지도",
+                category: "AI 자소서 심화",
+                time: "오전 09:00",
+                avatarBg: "bg-blue-700",
+                question: "2026년 기업의 AI 서류 평가 시스템은 ChatGPT/Claude 등의 정형화된 패턴 문장을 감점 대상으로 분류합니다. AI가 작성한 초안을 '구직자 고유의 합격 자소서'로 다듬기 위해 상담사가 지도해야 할 가장 핵심적인 첨삭 방식은 무엇입니까?",
+                options: [
+                    "AI가 쓴 매끄러운 단어와 어조를 유지하되 고사성어나 특수문자만 추가한다.",
+                    "AI 문장에서 일반적·추상적 결론 문장을 지우고, 구직자만의 구체적인 업무 수치(성과 데이터)와 시행착오 경험을 직접 재작성(Rewriting)하게 한다.",
+                    "글자 수를 늘리기 위해 AI에게 동일한 주제로 세 번 더 다듬게 한 뒤 합친다."
+                ],
+                correctIndex: 1,
+                explanation: "정답은 **2번**입니다! 2026년 채용 시장에서 AI 서류 판독기 및 평가자는 '매끄럽지만 누구에게나 해당하는 문장'을 즉시 감점합니다. AI로 문맥 구조만 잡은 뒤, 구직자의 실제 정량 성과 및 구체적 도구 활용 경험으로 직접 리라이팅하는 것이 핵심입니다.",
+                source: "2026 HR 채용 솔루션 AI 서류 평가 알고리즘 가이드",
+                counselorTip: "💡 상담 현장 멘트: 'AI가 만든 고상한 표현 대신, 당시 실제 사용했던 툴이름과 달성한 숫자를 직접 적어넣어야 합격 문장이 됩니다.'"
+            },
+            {
+                id: 2,
+                type: "objective",
+                sender: "기업 HR 담당자 협의회",
+                emailSubject: "[2026 자소서 첨삭 02] 지원 팀의 업무 리듬에 맞춘 팀핏(Team-Fit) 서술 지도",
+                category: "팀핏(Team-Fit) 맥락",
+                time: "오전 09:30",
+                avatarBg: "bg-indigo-700",
+                question: "2026년 대다수 민간 기업은 조직 전체의 컬처핏보다 지원 부서의 '팀핏(Team-Fit)'을 중요하게 평가합니다. 자소서 협업 항목에서 구직자가 팀핏을 정밀하게 어필하도록 상담사가 지도해야 할 포인트는 무엇입니까?",
+                options: [
+                    "\"어떤 사람과도 잘 어울리는 뛰어난 친화력을 가졌습니다\"라는 성격적 진술을 반복하게 한다.",
+                    "지원 팀이 실제 사용하는 일하는 방식(예: 빠른 피드백, 프로젝트 중심, AI 소통 툴 등)을 파악하고, 그와 유사했던 본인의 실제 협업 행동 및 갈등 중재 사례를 매칭하게 한다.",
+                    "팀 내에서 본인이 항상 주도권을 쥐고 모든 의사결정을 내렸음을 어필하게 한다."
+                ],
+                correctIndex: 1,
+                explanation: "정답은 **2번**입니다! 팀핏은 단순히 '원만한 인성'을 뜻하는 것이 아니라 '해당 부서의 소통 리듬과 업무 방식에 즉시 적응할 수 있는가'입니다. 지원 팀의 특성 및 소통 방식과 구직자의 기존 경험을 연결해 주는 것이 맥락 지도의 핵심입니다.",
+                source: "《채용트렌드 2026》 및 바른채용인증원 가이드",
+                counselorTip: "💡 상담 현장 멘트: '지원하신 팀의 채용공고와 리더 인터뷰를 살펴보고, 이 팀이 일하는 방식과 가장 비슷했던 경험 하나를 골라 조화 방식을 적어봅시다.'"
+            },
+            {
+                id: 3,
+                type: "objective",
+                sender: "한국직업능력연구원",
+                emailSubject: "[2026 자소서 첨삭 03] 중고신입/이직 희망자의 경험 포지셔닝 지도",
+                category: "중고신입 포지셔닝",
+                time: "오전 10:15",
+                avatarBg: "bg-amber-700",
+                question: "수시 채용과 경력자 선호가 강해진 2026년, 단기 인턴이나 이전 직장 경력이 있는 중고신입 구직자에게 상담사가 권장해야 할 가장 효과적인 서류 배치 및 작성 전략은 무엇입니까?",
+                options: [
+                    "전 직장에서 퇴사하게 된 개인적 사유와 불만을 자기소개서 지원동기 항목에 상세히 서술한다.",
+                    "지원 직무와 연결되는 핵심 성과(Key Accomplishments)를 최상단 경력기술서에 배치하고, 이전 업무 경험을 지원 직무 역량으로 재해석하여 어필한다.",
+                    "이전 직장의 일상적이고 반복적인 행정 잡무 절차를 시간 순서대로 길게 기술한다."
+                ],
+                correctIndex: 1,
+                explanation: "정답은 **2번**입니다! 중고신입 지도 시 이전 직장의 퇴사 사유나 일상 잡무 나열은 불리합니다. 지원하는 새로운 직무에 '즉시 기여 가능한 핵심 성과'를 최상단 경력기술서 요약(Executive Summary)으로 전면 배치하는 포지셔닝이 필수입니다.",
+                source: "인크루트 & 사람인 2026 경력/중고신입 채용 동향",
+                counselorTip: "💡 상담 현장 멘트: '이전 직장에서 하신 일 중, 새로 지원하는 직무의 핵심 과제와 연결되는 성과 2~3가지를 최상단에 요약 박스로 뽑아냅시다.'"
+            },
+            {
+                id: 4,
+                type: "objective",
+                sender: "HR 테크 AI 서류평가 연구소",
+                emailSubject: "[2026 자소서 첨삭 04] ATS 키워드의 문맥적 관련성(Contextual Relevance) 지도",
+                category: "ATS 문맥 최적화",
+                time: "오전 11:00",
+                avatarBg: "bg-teal-700",
+                question: "최근 기업의 ATS(채용 관리 시스템) 알고리즘은 단순히 단어를 복사해 넣은 키워드 스터핑(Keyword Stuffing)을 감지해 차단합니다. ATS를 안전하게 통과하면서 평가위원의 공감을 얻기 위한 키워드 지도법은 무엇입니까?",
+                options: [
+                    "채용 공고(JD)의 주요 직무 단어를 자소서 문장 맥락 속에서 본인의 실무 경험 및 결과 수치와 자연스럽게 결합하여 작성하도록 지도한다.",
+                    "자소서 맨 밑에 채용 공고의 모든 필수 키워드를 흰색 글씨로 숨겨서 대량으로 나열하게 한다.",
+                    "직무 키워드 대신 감성적인 형용사와 포부 단어 위주로 작성하도록 지도한다."
+                ],
+                correctIndex: 0,
+                explanation: "정답은 **1번**입니다! 최신 ATS 및 평가 알고리즘은 단어의 단순 출현 횟수가 아니라 '단어가 어떤 업무 맥락과 성과 수치 속에서 쓰였는가(Contextual Match)'를 평가합니다. JD 키워드가 구직자의 실무 행위와 결합하여 서술되도록 지도해야 합니다.",
+                source: "2026 ATS 평가 메커니즘 및 채용 솔루션 리포트",
+                counselorTip: "💡 상담 현장 멘트: 'JD에 나온 핵심 단어를 그냥 적지 마시고, [그 단어 + 본인이 수행한 행동 + 발생한 수치 성과]의 한 문장 세트로 만들어 반영하세요.'"
+            },
+            {
+                id: 5,
+                type: "subjective",
+                sender: "고용노동부 현장 지도 가이드",
+                emailSubject: "[2026 자소서 첨삭 05] 추상적 수식어 대체용 데이터 단위 (단답형)",
+                category: "단답형 · 문장 개편",
+                time: "오후 01:30",
+                avatarBg: "bg-purple-700",
+                question: "구직자가 자소서에 \"책임감이 강해 어떤 업무든 성실히 수행합니다\"라는 추상 문장을 써왔습니다. 이를 검증 가능한 문장으로 개편하기 위해 상담사는 '성실함'이라는 주관적 형용사 대신 작성자가 취한 행동과 [ O O O O ] 데이터로 입증하도록 첨삭해야 합니다. 빈칸에 들어갈 단답형 키워드 4글자는 무엇입니까?",
+                acceptables: ["정량적수치", "정량성과", "수치성과", "정량데이터", "수치", "정량적", "정량"],
+                modelAnswer: "정량적 수치 (또는 정량 성과)",
+                explanation: "'성실함', '책임감' 등 주관적 형용사를 지우고, [달성한 숫자의 크기, 처리건수, 시간 단축 비율, 매출 증가율] 등 검증 가능한 **정량적 수치 성과**로 작성하도록 지도합니다.",
+                counselorTip: "💡 첨삭 예시: \"'성실하다'를 지우고, '야간 데이터 100건을 직접 검수하여 기한 내 100% 제출한 성과'처럼 숫자 수치로 적게 지도하세요.\""
+            },
+            {
+                id: 6,
+                type: "subjective",
+                sender: "한국고용정보원 경험 마이닝팀",
+                emailSubject: "[2026 자소서 첨삭 06] 지원 직무 비연관 경험의 적용 가능 역량 (단답형)",
+                category: "단답형 · 역량 재해석",
+                time: "오후 02:15",
+                avatarBg: "bg-emerald-700",
+                question: "카페 서빙 등 지원 직무와 직접적 관련이 없어 보이는 아르바이트 경험에서도 [고객 응대, 컴플레인 해결, 데이터 관리]처럼 타 직무로 옮겨가서도 유효하게 발휘될 수 있는 공통 역량을 발굴해 주는 첨삭 기법을 '[ O O ] 역량 재해석'이라고 합니다. 빈칸에 들어갈 2글자 단답형 용어는 무엇입니까?",
+                acceptables: ["전이", "전이역량", "transferable", "transferableskills"],
+                modelAnswer: "전이 (전이 역량 / Transferable Skills)",
+                explanation: "아르바이트 경험을 '단순 노동'에 묶어두지 않고 타 직무로 옮겨 적용 가능한 **전이 역량(Transferable Skills)**으로 포지셔닝해 주는 것이 직업상담사의 핵심 재해석 역할입니다.",
+                counselorTip: "💡 첨삭 멘트: \"'커피를 서빙했다'가 아니라 '고객 응대 데이터를 분석해 매뉴얼을 개선하고 재방문율을 높인 고객관리 전이 역량'으로 시각을 바꿔봅시다.\""
+            },
+            {
+                id: 7,
+                type: "subjective",
+                sender: "채용공정성 및 서류평가위원회",
+                emailSubject: "[2026 자소서 첨삭 07] 지원동기의 관점 전환 개념 (단답형)",
+                category: "단답형 · 지원동기 개편",
+                time: "오후 03:00",
+                avatarBg: "bg-rose-700",
+                question: "지원동기가 \"OO기업은 업계 최고여서 지원했습니다\"와 같이 회사를 칭찬하는 '3인칭 기업 찬사'로 가득할 때, 서류 합격률을 높이려면 구직자 본인의 역량으로 회사의 문제를 해결할 수 있음을 강조하는 '[ O O O O ] 관점'으로 주어를 바꿔야 합니다. 빈칸에 들어갈 4글자 단답형 용어는 무엇입니까?",
+                acceptables: ["직무기여", "기여가치", "직무기여가치", "기여", "해결가치"],
+                modelAnswer: "직무 기여 (또는 기여 가치)",
+                explanation: "회사를 자랑하는 3인칭 관점은 감점 요소입니다. 기업의 최근 이슈와 채용 직무 과제(JD)에 구직자가 보유한 역량으로 **직무 기여 가치**를 제공하겠다는 1인칭 관점으로 지도해야 합니다.",
+                counselorTip: "💡 첨삭 멘트: \"'회사가 훌륭해서 지원했다'는 지우고, '회사의 OO 과제를 나의 OO 역량으로 어떻게 해결해 기여하겠다'로 바꿉시다.\""
+            }
+        ];
+
+        // State Tracking
+        let userAnswers = {}; // qIndex: { selectedOption / userText, isCorrect }
+
+        // Render Questions
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            quizData.forEach((q, index) => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl border border-slate-200 shadow-md3-1 hover:shadow-md3-2 transition-all p-4 sm:p-5 space-y-3.5 relative overflow-hidden";
+                card.id = `q-card-${index}`;
+
+                const isAnswered = userAnswers.hasOwnProperty(index);
+
+                let questionContentHtml = '';
+
+                if (q.type === 'objective') {
+                    const selectedObj = userAnswers[index];
+                    questionContentHtml = `
+                        <div class="grid grid-cols-1 gap-2 pt-1">
+                            ${q.options.map((opt, optIdx) => {
+                                let btnStyle = "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100";
+                                let icon = '<span class="w-5 h-5 rounded-full border border-slate-400 flex items-center justify-center text-xs text-slate-500 mr-2.5 shrink-0">' + (optIdx + 1) + '</span>';
+
+                                if (isAnswered) {
+                                    if (optIdx === q.correctIndex) {
+                                        btnStyle = "bg-emerald-50 border-emerald-500 text-emerald-900 font-bold ring-2 ring-emerald-400/30";
+                                        icon = '<span class="material-symbols-outlined text-emerald-600 mr-2 text-lg shrink-0">check_circle</span>';
+                                    } else if (selectedObj && optIdx === selectedObj.userAnswer) {
+                                        btnStyle = "bg-red-50 border-red-400 text-red-900 font-semibold";
+                                        icon = '<span class="material-symbols-outlined text-red-500 mr-2 text-lg shrink-0">cancel</span>';
+                                    } else {
+                                        btnStyle = "bg-slate-50 border-slate-200 text-slate-400 opacity-60 cursor-not-allowed";
+                                    }
+                                }
+
+                                return `
+                                    <button 
+                                        onclick="selectObjectiveAnswer(${index}, ${optIdx})" 
+                                        ${isAnswered ? 'disabled' : ''} 
+                                        class="w-full text-left p-3 sm:p-3.5 rounded-xl border text-xs sm:text-sm flex items-center transition-all ${btnStyle} active:scale-[0.99]">
+                                        ${icon}
+                                        <span class="flex-1 leading-snug">${opt}</span>
+                                    </button>
+                                `;
+                            }).join('')}
+                        </div>
+                    `;
+                } else {
+                    // Short-Answer Subjective
+                    const ansData = userAnswers[index];
+                    const userText = ansData ? ansData.userText : '';
+                    const isCorrectSubj = ansData ? ansData.isCorrect : false;
+
+                    questionContentHtml = `
+                        <div class="space-y-2.5 pt-1">
+                            <div class="flex flex-col sm:flex-row gap-2">
+                                <input 
+                                    type="text" 
+                                    id="subj-input-${index}" 
+                                    value="${userText}"
+                                    ${isAnswered ? 'disabled' : ''} 
+                                    placeholder="정답 단어를 적어주세요 (예: 정량적 수치)" 
+                                    onkeydown="if(event.key==='Enter') submitSubjectiveAnswer(${index})"
+                                    class="flex-1 p-3 text-base sm:text-sm border ${isAnswered ? (isCorrectSubj ? 'border-emerald-500 bg-emerald-50 text-emerald-900 font-bold' : 'border-red-400 bg-red-50 text-red-900 font-semibold') : 'border-slate-300 bg-slate-50 focus:border-blue-500 focus:bg-white'} rounded-xl outline-none transition-all disabled:opacity-90 shrink-0" />
+                                
+                                ${!isAnswered ? `
+                                    <button 
+                                        onclick="submitSubjectiveAnswer(${index})" 
+                                        class="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-sm hover:shadow transition-all flex items-center justify-center gap-1 shrink-0 active:scale-95">
+                                        <span class="material-symbols-outlined text-base">task_alt</span>
+                                        <span>정답 확인</span>
+                                    </button>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <!-- Card Header -->
+                    <div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-2.5">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-8 h-8 rounded-full ${q.avatarBg} text-white font-bold flex items-center justify-center text-xs shadow-sm shrink-0">
+                                ${q.sender.charAt(0)}
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-1.5 flex-wrap">
+                                    <span class="font-bold text-slate-800 text-xs sm:text-sm">${q.sender}</span>
+                                    <span class="text-[10px] sm:text-[11px] ${q.type === 'subjective' ? 'bg-purple-100 text-purple-800 border border-purple-200' : 'bg-slate-100 text-slate-600'} px-2 py-0.5 rounded-md font-semibold">${q.category}</span>
+                                </div>
+                                <h2 class="text-[11px] sm:text-xs font-semibold text-slate-500 line-clamp-1">${q.emailSubject}</h2>
+                            </div>
+                        </div>
+                        <span class="text-[11px] text-slate-400 shrink-0">${q.time}</span>
+                    </div>
+
+                    <!-- Question Content -->
+                    <div class="space-y-2.5">
+                        <div class="flex items-start gap-2">
+                            <span class="${q.type === 'subjective' ? 'bg-purple-600 text-white' : 'bg-blue-100 text-blue-900'} text-[11px] font-bold px-2 py-0.5 rounded-full shrink-0 mt-0.5">문항 ${index + 1} (${q.type === 'subjective' ? '단답형' : '객관식'})</span>
+                            <p class="text-xs sm:text-sm font-semibold text-slate-900 leading-relaxed">${q.question}</p>
+                        </div>
+
+                        ${questionContentHtml}
+                    </div>
+
+                    <!-- Instant Explanation Panel -->
+                    ${isAnswered ? `
+                        <div class="mt-3 p-3.5 rounded-xl ${userAnswers[index].isCorrect ? 'bg-emerald-50 border-emerald-200' : 'bg-amber-50 border-amber-200'} border space-y-1.5 animate-fade-in">
+                            <div class="flex items-center gap-1.5 font-bold text-xs ${userAnswers[index].isCorrect ? 'text-emerald-800' : 'text-amber-800'}">
+                                <span class="material-symbols-outlined text-base">${userAnswers[index].isCorrect ? 'check_circle' : 'cancel'}</span>
+                                <span>${userAnswers[index].isCorrect ? '정답입니다!' : '오답입니다. 정답과 해설을 확인하세요.'}</span>
+                            </div>
+
+                            ${q.type === 'subjective' ? `
+                                <div class="p-2.5 bg-white rounded-lg border ${userAnswers[index].isCorrect ? 'border-emerald-200' : 'border-amber-200'} text-xs text-slate-800 space-y-1">
+                                    <div><strong>📌 표준 정답:</strong> <span class="text-blue-700 font-bold">${q.modelAnswer}</span></div>
+                                    <p class="text-slate-600 leading-relaxed">${q.explanation}</p>
+                                </div>
+                            ` : `
+                                <p class="text-xs text-slate-800 leading-relaxed">${q.explanation}</p>
+                            `}
+
+                            <div class="p-2 rounded-lg bg-white/90 border border-slate-200 text-xs text-blue-900 font-medium">
+                                ${q.counselorTip}
+                            </div>
+                        </div>
+                    ` : ''}
+                `;
+
+                container.appendChild(card);
+            });
+
+            updateProgress();
+        }
+
+        // Objective Selection Handler
+        function selectObjectiveAnswer(qIndex, optIndex) {
+            if (userAnswers.hasOwnProperty(qIndex)) return;
+
+            const isCorrect = (optIndex === quizData[qIndex].correctIndex);
+            userAnswers[qIndex] = {
+                userAnswer: optIndex,
+                isCorrect: isCorrect
+            };
+
+            renderQuiz();
+            scrollToCard(qIndex);
+            checkAllCompleted();
+        }
+
+        // Short-Answer Subjective Submission Handler
+        function submitSubjectiveAnswer(qIndex) {
+            const inputEl = document.getElementById(`subj-input-${qIndex}`);
+            const textVal = inputEl ? inputEl.value.trim() : '';
+            if (!textVal) {
+                inputEl.focus();
+                return;
+            }
+
+            // Normalize input (strip spaces, lowercase)
+            const normalized = textVal.toLowerCase().replace(/\s+/g, '');
+            const acceptables = quizData[qIndex].acceptables || [];
+
+            const isCorrect = acceptables.some(acc => normalized.includes(acc.toLowerCase().replace(/\s+/g, '')));
+
+            userAnswers[qIndex] = {
+                userText: textVal,
+                isCorrect: isCorrect
+            };
+
+            renderQuiz();
+            scrollToCard(qIndex);
+            checkAllCompleted();
+        }
+
+        // Scroll Helper
+        function scrollToCard(qIndex) {
+            const cardEl = document.getElementById(`q-card-${qIndex}`);
+            if (cardEl) {
+                cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        // Progress Update
+        function updateProgress() {
+            const answeredCount = Object.keys(userAnswers).length;
+            const progressPercent = (answeredCount / quizData.length) * 100;
+            
+            // Desktop
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('progress-text').innerText = `${answeredCount} / ${quizData.length}`;
+            document.getElementById('unread-count').innerText = quizData.length - answeredCount;
+
+            // Mobile
+            document.getElementById('mobile-progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('mobile-progress-text').innerText = `${answeredCount} / ${quizData.length}`;
+
+            let correctCount = 0;
+            Object.keys(userAnswers).forEach(idx => {
+                if (userAnswers[idx].isCorrect) correctCount++;
+            });
+            document.getElementById('correct-count').innerText = correctCount;
+        }
+
+        // Check Completion
+        function checkAllCompleted() {
+            if (Object.keys(userAnswers).length === quizData.length) {
+                setTimeout(showFinalResultModal, 500);
+            }
+        }
+
+        // Show Final Result Modal
+        function showFinalResultModal() {
+            let correctCount = 0;
+            Object.keys(userAnswers).forEach(idx => {
+                if (userAnswers[idx].isCorrect) correctCount++;
+            });
+
+            const isPassed = correctCount >= 4; // Pass if 4 or more out of 7
+            const modal = document.getElementById('result-modal');
+            const header = document.getElementById('result-header');
+
+            if (isPassed) {
+                header.innerHTML = `
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-1">
+                        <span class="material-symbols-outlined text-emerald-600 text-base">verified</span>
+                        <span>서류 첨삭 역량 평가 통과 (PASS)</span>
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">🎉 축하합니다! (${correctCount} / 7개 정답)</h2>
+                    <p class="text-xs sm:text-sm font-bold text-blue-700 mt-1">2026년 최신 자소서 첨삭 핵심 지침을 완벽히 마스터하셨습니다!</p>
+                    <div class="pt-2 text-xs sm:text-sm font-bold text-amber-800 flex items-center justify-center gap-1.5 bg-amber-50 p-3 rounded-xl border border-amber-200 mt-2">
+                        <span class="material-symbols-outlined text-amber-500 text-xl">favorite</span>
+                        <span>현장에서 구직자들의 꿈을 밝혀주시는 직업상담사님의 열정과 노고를 깊이 응원합니다! ✨</span>
+                    </div>
+                `;
+            } else {
+                header.innerHTML = `
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold mb-1">
+                        <span class="material-symbols-outlined text-amber-600 text-base">edit_note</span>
+                        <span>복습 권장 (${correctCount} / 7개 정답)</span>
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-900">2026 자소서 첨삭 포인트를 조금 더 점검해보세요!</h2>
+                    <p class="text-xs text-slate-600 mt-1">4개 이상 정답 시 '통과' 마크와 핵심 가이드가 완성됩니다.</p>
+                `;
+            }
+
+            modal.classList.remove('hidden');
+            modal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Reset Quiz
+        function resetQuiz() {
+            userAnswers = {};
+            document.getElementById('result-modal').classList.add('hidden');
+            renderQuiz();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialization
+        window.onload = function() {
+            renderQuiz();
+            
+            // 복사 방지 보안 스크립트 (우클릭, 단축키, 개발자도구 차단)
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+            });
+
+            document.addEventListener('keydown', function(e) {
+                // F12, Ctrl+C, Ctrl+U(소스보기), Ctrl+S, Ctrl+Shift+I 차단
+                if (
+                    e.key === 'F12' ||
+                    (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S' || e.key === 'a' || e.key === 'A')) ||
+                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c'))
+                ) {
+                    e.preventDefault();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
