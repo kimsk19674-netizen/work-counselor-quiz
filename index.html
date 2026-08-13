@@ -71,119 +71,73 @@
             background: #C4C7C5;
             border-radius: 4px;
         }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-card-in {
+            animation: fadeIn 0.25s ease-out forwards;
+        }
     </style>
 </head>
-<body class="h-screen flex flex-col overflow-hidden text-slate-800">
+<body class="h-screen flex flex-col overflow-hidden text-slate-800 bg-slate-100">
 
-    <!-- Top App Bar (MD3 Mobile Optimized Header) -->
-    <header class="bg-md-surface border-b border-slate-200 px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between shrink-0 gap-2 z-20">
-        <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-            <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-700 flex items-center justify-center text-white font-bold shadow-sm">
-                <span class="material-symbols-outlined text-lg sm:text-xl">edit_note</span>
+    <!-- Top App Bar (MD3 Mobile Header) -->
+    <header class="bg-white border-b border-slate-200 px-3.5 sm:px-6 py-3 flex items-center justify-between shrink-0 gap-2 z-20 shadow-sm">
+        <div class="flex items-center gap-2.5 shrink-0">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-700 flex items-center justify-center text-white font-bold shadow-sm">
+                <span class="material-symbols-outlined text-xl sm:text-2xl">edit_note</span>
             </div>
             <div class="flex flex-col">
-                <span class="text-sm sm:text-base font-bold tracking-tight text-slate-800 leading-none">WorkCounselor Mail</span>
-                <span class="text-[10px] font-semibold text-blue-700">고용노동부 서류지도 전용</span>
+                <span class="text-base sm:text-lg font-extrabold tracking-tight text-slate-900 leading-none">WorkCounselor Mail</span>
+                <span class="text-[11px] font-bold text-blue-700 pt-0.5">고용노동부 서류지도 전용 모듈</span>
             </div>
         </div>
 
-        <!-- Right Badge & Reset -->
-        <div class="flex items-center gap-1.5">
-            <button onclick="resetQuiz()" class="text-xs font-semibold text-slate-600 hover:text-md-primary px-2.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 flex items-center gap-1 transition-all active:scale-95">
+        <!-- Right Header Badge & Reset Button -->
+        <div class="flex items-center gap-2">
+            <button onclick="resetQuiz()" class="text-xs sm:text-sm font-bold text-slate-700 hover:text-blue-700 px-3 py-1.5 rounded-lg border border-slate-300 hover:bg-slate-100 flex items-center gap-1 transition-all active:scale-95">
                 <span class="material-symbols-outlined text-base">refresh</span>
-                <span class="hidden sm:inline">초기화</span>
+                <span>초기화</span>
             </button>
-            <div class="w-8 h-8 rounded-full bg-emerald-600 text-white font-bold flex items-center justify-center text-xs shadow-sm">
-                상담
-            </div>
         </div>
     </header>
 
-    <!-- Main Content Layout -->
-    <div class="flex-1 flex overflow-hidden">
+    <!-- Top Step Progress Bar Indicator -->
+    <div class="bg-white border-b border-slate-200 px-4 py-2.5 flex items-center justify-between shrink-0 gap-3 shadow-inner">
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-blue-600 text-xl font-bold">task_alt</span>
+            <span class="text-xs sm:text-sm font-extrabold text-slate-800">
+                문항 진행: <span id="current-step-num" class="text-blue-700 text-sm sm:text-base font-black">1</span> / <span id="total-step-num">7</span>
+            </span>
+        </div>
+        <div class="flex-1 max-w-xs bg-slate-200 rounded-full h-3 overflow-hidden ml-2 border border-slate-300/50">
+            <div id="top-progress-bar" class="bg-blue-600 h-3 rounded-full transition-all duration-300" style="width: 14.28%"></div>
+        </div>
+    </div>
+
+    <!-- Main Scrollable Body Container -->
+    <div class="flex-1 overflow-y-auto p-3 sm:p-6 flex flex-col items-center justify-start pb-28">
         
-        <!-- Navigation Sidebar Drawer (Desktop) -->
-        <aside id="sidebar" class="w-64 bg-md-surface p-3 flex-col justify-between shrink-0 border-r border-slate-200 hidden md:flex transition-all">
-            <div class="space-y-1">
-                <button class="w-full flex items-center gap-3 px-4 py-3 rounded-full bg-md-primary-container text-md-on-primary-container font-semibold text-sm transition-all shadow-sm">
-                    <span class="material-symbols-outlined filled">inbox</span>
-                    <span>첨삭 지도 퀴즈 모듈</span>
-                    <span id="unread-count" class="ml-auto bg-md-primary text-white text-xs px-2 py-0.5 rounded-full font-bold">7</span>
-                </button>
-
-                <div class="pt-4 border-t border-slate-200 mt-4 px-3 space-y-3">
-                    <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">구성 문항 (7문항)</div>
-                    <ul class="text-xs text-slate-600 space-y-2 font-medium">
-                        <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-500"></span>[객관식] AI 자소서 고유성 리라이팅</li>
-                        <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-500"></span>[객관식] 팀핏(Team-Fit) 경험 매칭</li>
-                        <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-500"></span>[객관식] 중고신입/경력 직무 포지셔닝</li>
-                        <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-teal-500"></span>[객관식] ATS 키워드 문맥 결합 지도</li>
-                        <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-purple-500"></span>[단답형] 추상 형용사 대체 수치 데이터</li>
-                        <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span>[단답형] 비연관 경험의 전이 역량</li>
-                        <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-rose-500"></span>[단답형] 지원동기 직무 기여 관점</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Quiz Progress Tracker (Desktop Sidebar) -->
-            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2">
-                <div class="flex items-center justify-between text-xs font-semibold text-slate-600">
-                    <span>진행 현황</span>
-                    <span id="progress-text" class="text-md-primary font-bold">0 / 7</span>
-                </div>
-                <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
-                    <div id="progress-bar" class="bg-md-primary h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
-                </div>
-                <div id="score-counter" class="text-xs text-slate-500 font-medium text-center pt-1">
-                    완료/정답: <span id="correct-count" class="font-bold text-emerald-600">0</span>개
-                </div>
-            </div>
-        </aside>
-
-        <!-- Main Content Feed -->
-        <main class="flex-1 flex flex-col overflow-y-auto p-3 sm:p-6 bg-md-surface gap-3 sm:gap-4 pb-24">
+        <div class="w-full max-w-2xl mx-auto space-y-4">
             
-            <!-- Mobile Sticky Top Bar Progress -->
-            <div class="md:hidden bg-white px-3.5 py-2.5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between gap-3 shrink-0">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-blue-600 text-lg">task_alt</span>
-                    <span class="text-xs font-bold text-slate-700">퀴즈 진행: <span id="mobile-progress-text" class="text-blue-600 font-extrabold">0 / 7</span></span>
-                </div>
-                <div class="w-28 bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div id="mobile-progress-bar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
-                </div>
+            <!-- Dynamic Question Card Placeholder -->
+            <div id="single-question-container" class="w-full">
+                <!-- Rendered dynamically via JS -->
             </div>
 
-            <!-- Banner Header -->
-            <div class="bg-white p-3.5 sm:p-5 rounded-2xl border border-slate-200 shadow-md3-1 flex flex-wrap items-center justify-between gap-2.5">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-blue-100 text-blue-800 flex items-center justify-center shrink-0">
-                        <span class="material-symbols-outlined text-xl sm:text-2xl">workspace_premium</span>
-                    </div>
-                    <div>
-                        <h1 class="text-sm sm:text-lg font-bold text-slate-900 leading-snug">2026 직업상담사 서류 첨삭 역량 평가</h1>
-                        <p class="text-[11px] sm:text-xs text-slate-500">실전 자소서 핵심 맥락 지도 퀴즈 (객관식 4문항 + 단답형 3문항)</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quiz Cards Container -->
-            <div id="quiz-container" class="space-y-3.5 sm:space-y-4 max-w-4xl mx-auto w-full">
-                <!-- Injected via JavaScript -->
-            </div>
-
-            <!-- Final Score Result Banner -->
-            <div id="result-modal" class="hidden bg-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-md3-3 max-w-3xl mx-auto w-full space-y-4 sm:space-y-6 animate-fade-in mt-4">
+            <!-- Final Score Result Banner (Hidden until finished) -->
+            <div id="result-modal" class="hidden bg-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-md3-3 max-w-2xl mx-auto w-full space-y-5 animate-card-in">
                 <div id="result-header" class="text-center space-y-2">
                     <!-- Dynamic Header Content -->
                 </div>
 
-                <div class="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3 sm:space-y-4">
-                    <h3 class="font-bold text-slate-800 text-sm sm:text-base flex items-center gap-2">
-                        <span class="material-symbols-outlined text-blue-600 text-xl">psychology</span>
+                <div class="p-4 sm:p-6 rounded-2xl bg-blue-50/70 border border-blue-200 space-y-3">
+                    <h3 class="font-bold text-slate-900 text-base sm:text-lg flex items-center gap-2">
+                        <span class="material-symbols-outlined text-blue-700 text-2xl">psychology</span>
                         <span>2026 합격 서류 첨삭 상담사의 핵심 지도 포인트</span>
                     </h3>
-                    <ul class="text-xs sm:text-sm text-slate-700 space-y-2 list-disc list-inside leading-relaxed">
+                    <ul class="text-xs sm:text-sm text-slate-800 space-y-2.5 list-disc list-inside leading-relaxed font-medium">
                         <li><strong class="text-slate-900">정량적 수치 성과 데이터:</strong> 주관적 형용사를 배제하고 행동과 숫자 데이터로 입증하세요.</li>
                         <li><strong class="text-slate-900">전이 역량(Transferable Skills) 발굴:</strong> 아르바이트/비직무 경험도 데이터·고객·프로세스 관점으로 재해석하세요.</li>
                         <li><strong class="text-slate-900">직무 기여 관점 전환:</strong> 3인칭 기업 찬사를 지우고, 구직자의 1인칭 가치 및 문제해결 성과 중심으로 첨삭하세요.</li>
@@ -191,24 +145,42 @@
                     </ul>
                 </div>
 
-                <div class="flex items-center justify-center pt-1">
-                    <button onclick="resetQuiz()" class="w-full sm:w-auto px-6 py-3 rounded-full bg-blue-600 text-white font-bold text-xs sm:text-sm shadow-md hover:bg-blue-700 transition-all flex items-center justify-center gap-2 active:scale-95">
-                        <span class="material-symbols-outlined text-lg">restart_alt</span>
+                <div class="flex items-center justify-center pt-2">
+                    <button onclick="resetQuiz()" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-blue-600 text-white font-bold text-sm sm:text-base shadow-md hover:bg-blue-700 transition-all flex items-center justify-center gap-2 active:scale-95">
+                        <span class="material-symbols-outlined text-xl">restart_alt</span>
                         <span>퀴즈 다시 도전하기</span>
                     </button>
                 </div>
             </div>
 
-        </main>
+        </div>
+
     </div>
 
-    <!-- MD3 Floating Action Button -->
-    <div class="fixed bottom-4 right-4 z-40">
-        <button onclick="scrollToTop()" class="flex items-center gap-2 bg-md-primary-container text-md-on-primary-container hover:bg-blue-200 active:scale-95 transition-all p-3.5 sm:p-4 rounded-2xl shadow-md3-2 border border-blue-200/50">
-            <span class="material-symbols-outlined text-xl sm:text-2xl font-semibold text-md-primary">vertical_align_top</span>
-            <span class="font-bold text-xs sm:text-sm text-md-on-primary-container">맨 위로</span>
-        </button>
-    </div>
+    <!-- Bottom Navigation Controls (1 Question Per Screen) -->
+    <footer id="nav-footer" class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-300 p-3 sm:p-4 z-30 shadow-lg">
+        <div class="max-w-2xl mx-auto flex items-center justify-between gap-3">
+            <button 
+                id="btn-prev" 
+                onclick="prevQuestion()" 
+                class="px-4 sm:px-6 py-3 rounded-xl bg-slate-100 border border-slate-300 text-slate-700 font-bold text-xs sm:text-sm flex items-center gap-1 hover:bg-slate-200 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+                <span class="material-symbols-outlined text-base sm:text-lg">arrow_back</span>
+                <span>이전 문제</span>
+            </button>
+
+            <div class="text-xs sm:text-sm font-extrabold text-slate-500">
+                <span id="answered-indicator" class="text-blue-700">0</span> / 7 완료
+            </div>
+
+            <button 
+                id="btn-next" 
+                onclick="nextQuestion()" 
+                class="px-5 sm:px-7 py-3 rounded-xl bg-blue-600 text-white font-bold text-xs sm:text-sm flex items-center gap-1 hover:bg-blue-700 transition-all shadow-md active:scale-95">
+                <span id="next-btn-text">다음 문제</span>
+                <span class="material-symbols-outlined text-base sm:text-lg">arrow_forward</span>
+            </button>
+        </div>
+    </footer>
 
     <script>
         // Quiz Data - 4 Objective + 3 Short-Answer Subjective
@@ -336,185 +308,181 @@
             }
         ];
 
-        // State Tracking
+        // App State
+        let currentStep = 0; // 0 to 6
         let userAnswers = {}; // { qIndex: selectedIndex } for objective
         let userSubjectiveAnswers = {}; // { qIndex: textInput } for subjective
         let userSubjectiveScores = {}; // { qIndex: boolean } for subjective pass/fail
 
-        // Helper: Strip spaces and special characters for flexible subjective grading
+        // Normalization Helper for subjective answer check
         function normalizeText(str) {
             if (!str) return "";
             return str.replace(/[\s\t\n\r\.\,\-\_]/g, "").toLowerCase();
         }
 
-        // Render Quiz Cards
-        function renderQuiz() {
-            const container = document.getElementById('quiz-container');
-            container.innerHTML = '';
+        // Render Active Question Card
+        function renderCurrentQuestion() {
+            const container = document.getElementById('single-question-container');
+            const resultModal = document.getElementById('result-modal');
+            const navFooter = document.getElementById('nav-footer');
 
-            quizData.forEach((q, index) => {
-                const card = document.createElement('div');
-                card.className = "bg-white rounded-2xl border border-slate-200/90 shadow-md3-1 hover:shadow-md3-2 transition-all p-4 sm:p-6 space-y-3.5 sm:space-y-4 relative overflow-hidden";
-                card.id = `q-card-${index}`;
+            // Hide Result modal when viewing questions
+            resultModal.classList.add('hidden');
+            navFooter.classList.remove('hidden');
 
-                const isObjective = (q.type === "objective");
-                const isAnswered = isObjective ? userAnswers.hasOwnProperty(index) : userSubjectiveScores.hasOwnProperty(index);
-                const selectedAns = userAnswers[index];
+            const q = quizData[currentStep];
+            const isObjective = (q.type === "objective");
+            const isAnswered = isObjective ? userAnswers.hasOwnProperty(currentStep) : userSubjectiveScores.hasOwnProperty(currentStep);
+            const selectedAns = userAnswers[currentStep];
 
-                let questionBodyHtml = '';
+            let questionBodyHtml = '';
 
-                if (isObjective) {
-                    // Objective Options List
-                    questionBodyHtml = `
-                        <div class="grid grid-cols-1 gap-2 pt-1.5 sm:pt-2">
-                            ${q.options.map((opt, optIdx) => {
-                                let btnStyle = "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100 hover:border-slate-300";
-                                let icon = `<span class="w-5 h-5 rounded-full border border-slate-400 flex items-center justify-center text-xs text-slate-500 mr-2.5 shrink-0">${optIdx + 1}</span>`;
+            if (isObjective) {
+                // Objective Options (Large Readable Font)
+                questionBodyHtml = `
+                    <div class="grid grid-cols-1 gap-3 pt-2">
+                        ${q.options.map((opt, optIdx) => {
+                            let btnStyle = "bg-slate-50 border-slate-300 text-slate-800 hover:bg-slate-100 hover:border-slate-400";
+                            let icon = `<span class="w-7 h-7 rounded-full border-2 border-slate-400 flex items-center justify-center text-sm font-bold text-slate-600 mr-3 shrink-0">${optIdx + 1}</span>`;
 
-                                if (isAnswered) {
-                                    if (optIdx === q.correctIndex) {
-                                        btnStyle = "bg-emerald-50 border-emerald-500 text-emerald-900 font-bold ring-2 ring-emerald-400/30";
-                                        icon = '<span class="material-symbols-outlined text-emerald-600 mr-2 text-xl shrink-0">check_circle</span>';
-                                    } else if (optIdx === selectedAns) {
-                                        btnStyle = "bg-red-50 border-red-400 text-red-900 font-semibold";
-                                        icon = '<span class="material-symbols-outlined text-red-500 mr-2 text-xl shrink-0">cancel</span>';
-                                    } else {
-                                        btnStyle = "bg-slate-50 border-slate-200 text-slate-400 opacity-60 cursor-not-allowed";
-                                    }
+                            if (isAnswered) {
+                                if (optIdx === q.correctIndex) {
+                                    btnStyle = "bg-emerald-50 border-emerald-500 text-emerald-950 font-extrabold ring-2 ring-emerald-400/40";
+                                    icon = '<span class="material-symbols-outlined text-emerald-600 mr-2.5 text-2xl shrink-0">check_circle</span>';
+                                } else if (optIdx === selectedAns) {
+                                    btnStyle = "bg-red-50 border-red-400 text-red-950 font-bold";
+                                    icon = '<span class="material-symbols-outlined text-red-500 mr-2.5 text-2xl shrink-0">cancel</span>';
+                                } else {
+                                    btnStyle = "bg-slate-50 border-slate-200 text-slate-400 opacity-50 cursor-not-allowed";
                                 }
+                            }
 
-                                return `
-                                    <button 
-                                        onclick="selectAnswer(${index}, ${optIdx})" 
-                                        ${isAnswered ? 'disabled' : ''} 
-                                        class="w-full text-left p-3 sm:p-3.5 rounded-xl border text-xs sm:text-sm flex items-center transition-all ${btnStyle}">
-                                        ${icon}
-                                        <span class="flex-1 leading-snug">${opt}</span>
-                                    </button>
-                                `;
-                            }).join('')}
+                            return `
+                                <button 
+                                    onclick="selectAnswer(${currentStep}, ${optIdx})" 
+                                    ${isAnswered ? 'disabled' : ''} 
+                                    class="w-full text-left p-4 sm:p-4.5 rounded-2xl border-2 text-sm sm:text-base flex items-center transition-all min-h-[56px] ${btnStyle}">
+                                    ${icon}
+                                    <span class="flex-1 leading-snug font-semibold">${opt}</span>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            } else {
+                // Subjective Input Form (Large Input)
+                const currentInput = userSubjectiveAnswers[currentStep] || "";
+                const isPassed = userSubjectiveScores[currentStep] === true;
+
+                if (!isAnswered) {
+                    questionBodyHtml = `
+                        <div class="pt-3 space-y-3">
+                            <div class="flex flex-col sm:flex-row items-stretch gap-2.5">
+                                <input 
+                                    type="text" 
+                                    id="sub-input-${currentStep}" 
+                                    placeholder="정답 단어를 입력하세요 (예: 정량적 수치)" 
+                                    value="${currentInput}" 
+                                    class="flex-1 bg-white border-2 border-slate-300 rounded-2xl px-4 py-3.5 text-base text-slate-900 focus:outline-none focus:border-blue-600 transition-all shadow-inner font-bold"
+                                    onkeydown="if(event.key==='Enter') checkSubjectiveAnswer(${currentStep})"
+                                >
+                                <button 
+                                    onclick="checkSubjectiveAnswer(${currentStep})" 
+                                    class="px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm sm:text-base shrink-0 shadow-md transition-all active:scale-95 flex items-center justify-center gap-1.5">
+                                    <span>정답 제출</span>
+                                    <span class="material-symbols-outlined text-lg">send</span>
+                                </button>
+                            </div>
                         </div>
                     `;
                 } else {
-                    // Subjective Input Form
-                    const currentInput = userSubjectiveAnswers[index] || "";
-                    const isPassed = userSubjectiveScores[index] === true;
-
-                    if (!isAnswered) {
-                        questionBodyHtml = `
-                            <div class="pt-2 space-y-2.5">
+                    questionBodyHtml = `
+                        <div class="pt-2 space-y-2.5">
+                            <div class="p-4 rounded-2xl border-2 ${isPassed ? 'bg-emerald-50 border-emerald-400 text-emerald-950' : 'bg-red-50 border-red-400 text-red-950'} flex items-center justify-between text-sm sm:text-base">
                                 <div class="flex items-center gap-2">
-                                    <input 
-                                        type="text" 
-                                        id="sub-input-${index}" 
-                                        placeholder="정답 단어를 입력하세요 (예: 정량적 수치)" 
-                                        value="${currentInput}" 
-                                        class="flex-1 bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-3 text-base sm:text-sm text-slate-900 focus:outline-none focus:border-blue-600 focus:bg-white transition-all shadow-inner"
-                                        onkeydown="if(event.key==='Enter') checkSubjectiveAnswer(${index})"
-                                    >
-                                    <button 
-                                        onclick="checkSubjectiveAnswer(${index})" 
-                                        class="px-4 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm shrink-0 shadow-sm transition-all active:scale-95 flex items-center gap-1">
-                                        <span>정답 제출</span>
-                                        <span class="material-symbols-outlined text-base">send</span>
-                                    </button>
-                                </div>
-                            </div>
-                        `;
-                    } else {
-                        questionBodyHtml = `
-                            <div class="pt-2 space-y-2">
-                                <div class="p-3.5 rounded-xl border ${isPassed ? 'bg-emerald-50 border-emerald-300 text-emerald-950' : 'bg-red-50 border-red-300 text-red-950'} flex items-center justify-between text-xs sm:text-sm">
-                                    <div class="flex items-center gap-2">
-                                        <span class="material-symbols-outlined ${isPassed ? 'text-emerald-600' : 'text-red-500'} font-bold">
-                                            ${isPassed ? 'check_circle' : 'cancel'}
-                                        </span>
-                                        <span>내가 입력한 답: <strong>"${userSubjectiveAnswers[index]}"</strong></span>
-                                    </div>
-                                    <span class="font-bold px-2 py-0.5 rounded text-[11px] ${isPassed ? 'bg-emerald-200 text-emerald-900' : 'bg-red-200 text-red-900'}">
-                                        ${isPassed ? '정답 인정' : '오답'}
+                                    <span class="material-symbols-outlined ${isPassed ? 'text-emerald-600' : 'text-red-500'} font-black text-2xl">
+                                        ${isPassed ? 'check_circle' : 'cancel'}
                                     </span>
+                                    <span>내가 입력한 답: <strong class="text-slate-900 font-extrabold">"${userSubjectiveAnswers[currentStep]}"</strong></span>
                                 </div>
-                                <div class="text-xs text-slate-600 px-1">
-                                    * 권장 모범 답안: <strong class="text-blue-700">${q.standardAnswer}</strong>
-                                </div>
+                                <span class="font-bold px-2.5 py-1 rounded-lg text-xs ${isPassed ? 'bg-emerald-200 text-emerald-900' : 'bg-red-200 text-red-900'}">
+                                    ${isPassed ? '정답 인정' : '오답'}
+                                </span>
                             </div>
-                        `;
-                    }
+                            <div class="text-xs sm:text-sm text-slate-700 px-1 font-bold">
+                                * 권장 모범 답안: <strong class="text-blue-700 text-sm sm:text-base">${q.standardAnswer}</strong>
+                            </div>
+                        </div>
+                    `;
                 }
+            }
 
-                card.innerHTML = `
-                    <!-- Card Header (Email Style) -->
-                    <div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-2.5">
-                        <div class="flex items-center gap-2.5">
-                            <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full ${q.avatarBg} text-white font-bold flex items-center justify-center text-xs sm:text-sm shadow-sm shrink-0">
+            // Assemble Main Card Template
+            container.innerHTML = `
+                <div class="bg-white rounded-3xl border border-slate-200 shadow-md3-2 p-5 sm:p-7 space-y-4 animate-card-in">
+                    <!-- Email Header Info -->
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full ${q.avatarBg} text-white font-bold flex items-center justify-center text-sm shadow-sm shrink-0">
                                 ${q.sender.charAt(0)}
                             </div>
                             <div>
-                                <div class="flex items-center gap-1.5 flex-wrap">
-                                    <span class="font-bold text-slate-800 text-xs sm:text-sm">${q.sender}</span>
-                                    <span class="text-[10px] sm:text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md font-semibold">${q.category}</span>
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <span class="font-extrabold text-slate-900 text-xs sm:text-sm">${q.sender}</span>
+                                    <span class="text-xs bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-full font-bold border border-slate-200">${q.category}</span>
                                 </div>
-                                <h2 class="text-xs text-slate-500 line-clamp-1">${q.emailSubject}</h2>
+                                <h2 class="text-xs sm:text-sm text-slate-500 font-medium line-clamp-1">${q.emailSubject}</h2>
                             </div>
                         </div>
-                        <span class="text-[11px] text-slate-400 shrink-0">${q.time}</span>
+                        <span class="text-xs text-slate-400 font-medium shrink-0">${q.time}</span>
                     </div>
 
-                    <!-- Question Content -->
-                    <div class="space-y-2">
-                        <div class="flex items-start gap-2">
-                            <span class="bg-blue-100 text-blue-900 text-xs font-extrabold px-2 py-0.5 rounded-md shrink-0 mt-0.5">
-                                Q${index + 1} [${isObjective ? '객관식' : '단답형'}]
-                            </span>
-                            <p class="text-xs sm:text-sm font-semibold text-slate-900 leading-relaxed">${q.question}</p>
+                    <!-- Question Label & Title (HIGH READABILITY LARGE FONT) -->
+                    <div class="space-y-3 pt-1">
+                        <div class="inline-flex items-center gap-1.5 bg-blue-100 text-blue-900 text-xs font-black px-3 py-1 rounded-lg border border-blue-200">
+                            <span>Q${currentStep + 1} 문항</span>
+                            <span>[${isObjective ? '객관식 3지선다' : '단답형 주관식'}]</span>
                         </div>
-
-                        ${questionBodyHtml}
+                        <h2 class="text-base sm:text-lg md:text-xl font-bold text-slate-900 leading-relaxed tracking-tight">
+                            ${q.question}
+                        </h2>
                     </div>
 
-                    <!-- Instant Explanation Panel -->
+                    <!-- Question Interactive Body -->
+                    ${questionBodyHtml}
+
+                    <!-- Explanation Card (Appears after answer) -->
                     ${isAnswered ? `
-                        <div class="mt-3 p-3.5 sm:p-4 rounded-xl ${ (isObjective ? selectedAns === q.correctIndex : userSubjectiveScores[index]) ? 'bg-emerald-50/90 border-emerald-200' : 'bg-amber-50/90 border-amber-200'} border space-y-2 animate-fade-in">
-                            <div class="flex items-center gap-1.5 font-bold text-xs ${ (isObjective ? selectedAns === q.correctIndex : userSubjectiveScores[index]) ? 'text-emerald-800' : 'text-amber-900'}">
-                                <span class="material-symbols-outlined text-base">
-                                    ${ (isObjective ? selectedAns === q.correctIndex : userSubjectiveScores[index]) ? 'sentiment_very_satisfied' : 'info'}
+                        <div class="mt-4 p-4 sm:p-5 rounded-2xl ${ (isObjective ? selectedAns === q.correctIndex : userSubjectiveScores[currentStep]) ? 'bg-emerald-50 border-emerald-300' : 'bg-amber-50 border-amber-300'} border-2 space-y-2.5 animate-card-in">
+                            <div class="flex items-center gap-2 font-black text-sm sm:text-base ${ (isObjective ? selectedAns === q.correctIndex : userSubjectiveScores[currentStep]) ? 'text-emerald-900' : 'text-amber-950'}">
+                                <span class="material-symbols-outlined text-2xl">
+                                    ${ (isObjective ? selectedAns === q.correctIndex : userSubjectiveScores[currentStep]) ? 'sentiment_very_satisfied' : 'info'}
                                 </span>
-                                <span>${ (isObjective ? selectedAns === q.correctIndex : userSubjectiveScores[index]) ? '정답입니다! 지도 핵심 맥락을 정확히 파악하셨습니다.' : '핵심 지도 해설을 확인해 보세요.'}</span>
+                                <span>${ (isObjective ? selectedAns === q.correctIndex : userSubjectiveScores[currentStep]) ? '정답입니다! 지도 맥락을 정확히 파악하셨습니다.' : '핵심 지도 해설을 확인해 보세요.'}</span>
                             </div>
-                            <p class="text-xs sm:text-sm text-slate-800 leading-relaxed">${q.explanation}</p>
-                            <div class="text-[11px] text-blue-900 bg-blue-50/80 p-2.5 rounded-lg border border-blue-100 mt-2 font-medium">
+                            <p class="text-xs sm:text-sm text-slate-800 leading-relaxed font-semibold">${q.explanation}</p>
+                            <div class="text-xs sm:text-sm text-blue-950 bg-white p-3 rounded-xl border border-blue-200 font-bold shadow-sm">
                                 ${q.counselorTip}
                             </div>
-                            <div class="text-[10px] sm:text-[11px] text-slate-400 pt-1">
-                                📖 출처 및 근거: <strong>${q.source}</strong>
+                            <div class="text-xs text-slate-500 pt-1">
+                                📖 출처: <strong>${q.source}</strong>
                             </div>
                         </div>
                     ` : ''}
-                `;
+                </div>
+            `;
 
-                container.appendChild(card);
-            });
-
-            updateProgress();
+            updateStepProgressUI();
         }
 
-        // Objective Selection Handler
+        // Objective Option Click
         function selectAnswer(qIndex, optIndex) {
             if (userAnswers.hasOwnProperty(qIndex)) return;
-
             userAnswers[qIndex] = optIndex;
-            renderQuiz();
-
-            const cardEl = document.getElementById(`q-card-${qIndex}`);
-            if (cardEl) {
-                cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-
-            checkCompletion();
+            renderCurrentQuestion();
         }
 
-        // Subjective Input Answer Checker
+        // Subjective Submit Click
         function checkSubjectiveAnswer(qIndex) {
             const inputEl = document.getElementById(`sub-input-${qIndex}`);
             if (!inputEl) return;
@@ -527,59 +495,66 @@
             }
 
             userSubjectiveAnswers[qIndex] = rawVal;
-
             const normalizedInput = normalizeText(rawVal);
             const acceptableList = quizData[qIndex].acceptableAnswers.map(a => normalizeText(a));
 
             const isCorrect = acceptableList.some(acc => normalizedInput.includes(acc) || acc.includes(normalizedInput));
             userSubjectiveScores[qIndex] = isCorrect;
 
-            renderQuiz();
-
-            const cardEl = document.getElementById(`q-card-${qIndex}`);
-            if (cardEl) {
-                cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-
-            checkCompletion();
+            renderCurrentQuestion();
         }
 
-        // Check if all 7 questions completed
-        function checkCompletion() {
+        // Navigation: Next Question
+        function nextQuestion() {
+            if (currentStep < quizData.length - 1) {
+                currentStep++;
+                renderCurrentQuestion();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                // At step 7, show final result
+                showFinalResultModal();
+            }
+        }
+
+        // Navigation: Previous Question
+        function prevQuestion() {
+            if (currentStep > 0) {
+                currentStep--;
+                renderCurrentQuestion();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Update Top and Bottom Step Indicators
+        function updateStepProgressUI() {
+            document.getElementById('current-step-num').innerText = currentStep + 1;
+            document.getElementById('total-step-num').innerText = quizData.length;
+
+            const progressPercent = ((currentStep + 1) / quizData.length) * 100;
+            document.getElementById('top-progress-bar').style.width = `${progressPercent}%`;
+
+            // Calculate total answered count
             const totalAnswered = Object.keys(userAnswers).length + Object.keys(userSubjectiveScores).length;
-            if (totalAnswered === quizData.length) {
-                setTimeout(showFinalResultModal, 600);
+            document.getElementById('answered-indicator').innerText = totalAnswered;
+
+            // Prev Button State
+            const prevBtn = document.getElementById('btn-prev');
+            prevBtn.disabled = (currentStep === 0);
+
+            // Next Button Text State
+            const nextBtnText = document.getElementById('next-btn-text');
+            if (currentStep === quizData.length - 1) {
+                nextBtnText.innerText = "결과 확인하기";
+            } else {
+                nextBtnText.innerText = "다음 문제";
             }
         }
 
-        // Update Progress Tracker
-        function updateProgress() {
-            const totalAnswered = Object.keys(userAnswers).length + Object.keys(userSubjectiveScores).length;
-            const progressPercent = (totalAnswered / quizData.length) * 100;
-            
-            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
-            document.getElementById('progress-text').innerText = `${totalAnswered} / ${quizData.length}`;
-            document.getElementById('unread-count').innerText = quizData.length - totalAnswered;
-
-            if (document.getElementById('mobile-progress-bar')) {
-                document.getElementById('mobile-progress-bar').style.width = `${progressPercent}%`;
-                document.getElementById('mobile-progress-text').innerText = `${totalAnswered} / ${quizData.length}`;
-            }
-
-            // Calculate total correct answers
-            let correctCount = 0;
-            Object.keys(userAnswers).forEach(idx => {
-                if (userAnswers[idx] === quizData[idx].correctIndex) correctCount++;
-            });
-            Object.keys(userSubjectiveScores).forEach(idx => {
-                if (userSubjectiveScores[idx] === true) correctCount++;
-            });
-
-            document.getElementById('correct-count').innerText = correctCount;
-        }
-
-        // Final Score Result Modal (Score >= 4 Pass)
+        // Final Score Result Screen Modal (Pass if >= 4)
         function showFinalResultModal() {
+            document.getElementById('single-question-container').innerHTML = '';
+            document.getElementById('nav-footer').classList.add('hidden');
+
             let correctCount = 0;
             Object.keys(userAnswers).forEach(idx => {
                 if (userAnswers[idx] === quizData[idx].correctIndex) correctCount++;
@@ -594,20 +569,20 @@
 
             if (isPassed) {
                 header.innerHTML = `
-                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-bold mb-2">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-sm font-bold mb-2">
                         <span class="material-symbols-outlined text-emerald-600">verified</span>
                         <span>서류 지도 역량 평가 통과 (PASS)</span>
                     </div>
-                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">🎉 축하합니다! (${correctCount} / 7개 정답)</h2>
-                    <p class="text-sm sm:text-base font-bold text-blue-700 mt-1">2026년 합격 자소서 지도 핵심 역량을 완벽히 갖추셨습니다!</p>
-                    <div class="pt-3 text-sm sm:text-base font-extrabold text-amber-800 flex items-center justify-center gap-2 bg-amber-50 p-3.5 rounded-2xl border border-amber-200">
-                        <span class="material-symbols-outlined text-amber-500">stars</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">🎉 축하합니다! (${correctCount} / 7개 정답)</h2>
+                    <p class="text-base sm:text-lg font-bold text-blue-700 mt-1">2026년 합격 자소서 지도 핵심 역량을 완벽히 갖추셨습니다!</p>
+                    <div class="pt-3 text-sm sm:text-base font-extrabold text-amber-900 flex items-center justify-center gap-2 bg-amber-50 p-4 rounded-2xl border border-amber-200 shadow-sm">
+                        <span class="material-symbols-outlined text-amber-500 text-2xl">stars</span>
                         <span>현장에서 구직자들의 꿈을 밝혀주시는 직업상담사님의 열정과 노고를 깊이 응원합니다! ✨</span>
                     </div>
                 `;
             } else {
                 header.innerHTML = `
-                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 text-amber-800 text-xs sm:text-sm font-bold mb-2">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 text-amber-800 text-sm font-bold mb-2">
                         <span class="material-symbols-outlined text-amber-600">auto_fix_high</span>
                         <span>복습 권장 (${correctCount} / 7개 정답)</span>
                     </div>
@@ -617,28 +592,22 @@
             }
 
             modal.classList.remove('hidden');
-            modal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Reset Quiz
+        // Reset Quiz Logic
         function resetQuiz() {
+            currentStep = 0;
             userAnswers = {};
             userSubjectiveAnswers = {};
             userSubjectiveScores = {};
-            document.getElementById('result-modal').classList.add('hidden');
-            renderQuiz();
+            renderCurrentQuestion();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Scroll to top
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Anti-Copy & Anti-Inspection Guardrails
+        // Anti-Copy & Anti-Inspection Security Controls
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => {
-            // Prevent F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+C
             if (
                 e.key === 'F12' ||
                 (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
@@ -650,9 +619,9 @@
         document.addEventListener('selectstart', e => e.preventDefault());
         document.addEventListener('dragstart', e => e.preventDefault());
 
-        // Initialize App on Load
+        // Initialize App on Window Load
         window.onload = function() {
-            renderQuiz();
+            renderCurrentQuestion();
         };
     </script>
 </body>
